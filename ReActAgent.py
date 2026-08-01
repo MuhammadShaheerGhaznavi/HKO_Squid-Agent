@@ -28,7 +28,7 @@ def read_page(fpath :str) -> str: # gets a file path and reads the entire file
     if not target.exists():
         target = Path(WIKI_DIR) / f"{fpath.lstrip('/')}.md"
     if not target.exists():
-        return f'Wiki page {fpath} does not exist at the path {f}'
+        return f'Wiki page {fpath} does not exist at the path {target}'
 
     try:
         return target.read_text(encoding='utf-8') # method provided by pathlib.Path conviniently oprn
@@ -58,7 +58,7 @@ def get_backlinks(filename:str) ->str: # returns backlinks
     pattern = re.compile(rf'\[\[{re.escape(clean_name)}\]\]', re.IGNORECASE)
     path = Path(WIKI_DIR)
     backlinks =[]
-    for f in path.glob('*.md'):
+    for f in path.rglob('*.md'):
         try:
             text = f.read_text(encoding='utf8')
             if pattern.search(text):

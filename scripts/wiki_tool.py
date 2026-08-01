@@ -43,10 +43,11 @@ class WikiNoteParser:
         match = re.search(props_pattern, content, re.DOTALL)
 
         if match:
-            raw_props = match.group("props_raw").strip()
+            raw_props = match.group("props_raw").strip() # returns the matched string
             metadata = WikiNoteParser._parse_yaml_str(raw_props)
             # Body is everything after the Properties block
-            body = content[match.end("props_raw"):].strip()
+            body = content[match.end("props_raw"):].strip() # macth.end() returns index of the first character after the 
+                        # matched string ends
         else:
             # 2. Fallback to YAML Frontmatter (---)
             fm_pattern = r"^---\s*\n(.*?)\n---\s*\n(.*)$"
@@ -103,7 +104,7 @@ class CatalogManager:
         self.catalog_path = CATALOG_FILE
         self.index_path = INDEX_FILE
 
-    def load_catalog(self) -> Dict[str, Any]:
+    def load_catalog(self) -> Dict[str, Any]: # loads/initializes catalog.json
         if self.catalog_path.exists() and self.catalog_path.stat().st_size > 0:
             try:
                 with open(self.catalog_path, "r", encoding="utf-8") as f:
@@ -113,7 +114,7 @@ class CatalogManager:
         return {"last_updated": "", "entries": {}}
 
     def sync_all(self) -> Dict[str, Any]:
-        """Scans the entire wiki/ directory and updates catalog.json and index.md idempotently."""
+        """Scans the **entire wiki/ directory** and updates catalog.json and index.md idempotently."""
         catalog = self.load_catalog()
         entries = {}
 
@@ -143,7 +144,7 @@ class CatalogManager:
                 if isinstance(last_updated_val, (datetime.date, datetime.datetime)):
                     last_updated_val = last_updated_val.isoformat()
 
-                entries[rel_path] = {
+                entries[rel_path] = { ## this is treating each md file as a separate key
                     "title": metadata.get("title", md_file.stem.replace("-", " ").title()),
                     "type": metadata.get("type", category[:-1] if category.endswith("s") else category),
                     "summary": metadata.get("summary", "No summary provided."),
@@ -232,7 +233,7 @@ class LLMWikiIngester:
         
         file_path = target_dir / f"{slug}.md"
         sources_str = json.dumps(sources) if sources else "[]"
-        keywords_str = json.dumps(keywords if keywords else [])
+        keywords_str = json.dumps(keywords) if keywords else '[]'
         today = datetime.date.today().isoformat()
 
         formatted_content = f"""## Wiki-note

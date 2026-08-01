@@ -6,5 +6,7 @@ type: concept | entity | procedure | synthesis  # choose one
 summary: "Brief 1-2 sentence description."
 sources: "[[raw/sources/example-source]]"
 source_count:  # number of sources 
+keywords: # List of keywords 
 last_updated: YYYY-MM-DD
 
+## Content
