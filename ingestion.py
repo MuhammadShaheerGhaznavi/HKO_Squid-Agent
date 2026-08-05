@@ -154,7 +154,7 @@ def _find_marker(text: str, marker: str, start: int = 0) -> int:  ## UNDERSTAND 
     if pos >= 0:
         return pos
 
-    marker_words = [w for w in normalized_marker.split() if len(w) > 2]
+    marker_words = [w for w in normalized_marker.split() if len(w) > 2] # gets words in normalized_marker that are longer than 2 chars
     for length in [20, 12, 8, 5, 3]:
         if len(marker_words) >= length:
             candidate = " ".join(marker_words[:length])
@@ -170,7 +170,7 @@ def _find_marker(text: str, marker: str, start: int = 0) -> int:  ## UNDERSTAND 
     return -1
 
 
-SINGLE_PASS_THRESHOLD = 12000 ## this is checking for characters??
+SINGLE_PASS_THRESHOLD = 12000 ## If document under 12k tokens, just use single pass LLM
 
 
 def analyze_structure(state: IngestionState) -> Dict[str, Any]:
@@ -184,8 +184,7 @@ def analyze_structure(state: IngestionState) -> Dict[str, Any]:
         return {"sections": None}
 
     llm = _create_llm()
-    structured_llm = llm.with_structured_output(DocumentStructure, method="json_mode") ##  what is structured output ??  is it instance of model ? **
-                            ### HOW DO WE USE DocumentStructure Pydantic to structure output??? **
+    structured_llm = llm.with_structured_output(DocumentStructure, method="json_mode") ## parses the raw string (json) directly into an instance of DocumentStructure
 
     system_prompt = """You are a document structure analyzer. Your job is to identify TOP-LEVEL CHAPTERS (not subsections) so each can be processed individually for knowledge extraction.
 
@@ -231,7 +230,7 @@ Output pure JSON matching the schema exactly. Do not omit any fields."""
     return {"sections": result.sections}
 
 
-def extract_section_notes(state: IngestionState) -> Dict[str, Any]:
+def extract_section_notes(state: IngestionState) -> Dict[str, Any]:  # processes wiki notes from the entire document
     """Phase 2: Extracts wiki notes from each section (or batch of small sections).
     Falls back to single-pass extraction if no sections available."""
     sections = state.get("sections")
@@ -258,7 +257,7 @@ def extract_section_notes(state: IngestionState) -> Dict[str, Any]:
         )
 
         try:
-            notes = _extract_from_batch(batch_text, source_id)
+            notes = _extract_from_batch(batch_text, source_id) # sends back wiki notes extracted from the batch
         except Exception as e:
             section_labels = ", ".join(s.title for s, _ in batch)
             print(f"  ⚠️  Batch {batch_idx + 1} [{section_labels}] failed: {e}")
@@ -337,7 +336,7 @@ def _build_section_batches(sections: List[DocumentSection], text: str) -> List[L
     section_chunks = []
 
     for section in sections:
-        start_pos = _find_marker(text, section.start_marker)
+        start_pos = _find_marker(text, section.start_marker) # returns start index of the start marker in text
         if start_pos < 0:
             print(f"  ⚠️  Could not locate start marker for '{section.title}', skipping.")
             continue
@@ -351,9 +350,9 @@ def _build_section_batches(sections: List[DocumentSection], text: str) -> List[L
             if end_pos < 0:
                 end_pos = len(text)
 
-        chunk = text[start_pos:end_pos].strip()
-        if len(chunk) > 80:
-            section_chunks.append((section, chunk))
+        chunk = text[start_pos:end_pos].strip() # chunk is just the actual string chunk
+        if len(chunk) > 80: # if chunk smaller than 80 characters then ignore it
+            section_chunks.append((section, chunk)) # appending tuple of section and chunk
 
     batches = []
     current_batch = []
@@ -363,7 +362,8 @@ def _build_section_batches(sections: List[DocumentSection], text: str) -> List[L
     for section, chunk in section_chunks:
         chunk_len = len(chunk)
 
-        if current_chars + chunk_len > BATCH_TARGET and current_batch:
+        if current_chars + chunk_len > BATCH_TARGET and current_batch: 
+            # if current chars in batch + this chunk exceeds 10,000 chars then 'seal' the current batch and start a new one
             batches.append(current_batch)
             current_batch = []
             current_chars = 0
@@ -380,7 +380,7 @@ def _build_section_batches(sections: List[DocumentSection], text: str) -> List[L
 def _extract_from_batch(batch_text: str, source_id: str) -> List[ExtractedWikiNote]:
     """Extracts wiki notes from a single section batch using the LLM."""
     llm = _create_llm()
-    structured_llm = llm.with_structured_output(SectionExtraction, method="json_mode")
+    structured_llm = llm.with_structured_output(SectionExtraction, method="json_mode") ## parses json output directly into an instance of SectionExtraction
 
     system_prompt = """You are an expert knowledge management assistant. You receive one or more complete chapters from a larger document. Extract comprehensive, self-contained wiki notes that cover the full concepts in the given chapters.
 
@@ -444,12 +444,13 @@ def consolidate_notes(state: IngestionState) -> Dict[str, Any]:
             if j in used:
                 continue
             if note_a.type == note_b.type and sim(note_a.title, note_b.title) > MERGE_THRESHOLD:
+                # group two notes if they have the same type and the title match is > .65
                 cluster.append(j)
-                used.add(j)
+                used.add(j)  # ensures a note is not assigned to multiple clusters
         clusters.append(cluster)
 
-    mergeable = [(c, len(c)) for c in clusters if len(c) > 1]
-    mergeable.sort(key=lambda x: -x[1])
+    mergeable = [(c, len(c)) for c in clusters if len(c) > 1] # get only clusters having 2 or more notes
+    mergeable.sort(key=lambda x: -x[1]) # sort desc order of cluster len
 
     if not mergeable:
         print("ℹ️  No redundant notes found; skipping consolidation.")
@@ -547,11 +548,11 @@ def write_wiki_files(state: IngestionState) -> Dict[str, Any]:
     }
 
     for note in decomposition.notes:
-        slug = re.sub(r"[^\w\-_]", "-", note.title.lower()).strip("-")
+        slug = re.sub(r"[^\w\-_]", "-", note.title.lower()).strip("-") # A slug is a web- and filesystem-safe version of a human-readable title used for file naming.
         folder = type_folder_map.get(note.type, f"{note.type}s")
         target_path = WIKI_DIR / folder / f"{slug}.md"
 
-        if target_path.exists():
+        if target_path.exists(): # target_path is a Path object
             print(f"⏭  Skipped (already exists): {folder}/{slug}.md")
             skipped_count += 1
             continue
