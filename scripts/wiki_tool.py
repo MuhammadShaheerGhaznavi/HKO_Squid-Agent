@@ -159,6 +159,20 @@ class CatalogManager:
         catalog["last_updated"] = datetime.datetime.now().isoformat()
         catalog["entries"] = entries
 
+        # Precompute backlinks: for each entry, list other entries that wikilink to it
+        entry_paths = {p: e.get("title", "") for p, e in entries.items()}
+        backlinks_map: Dict[str, List[str]] = {p: [] for p in entries}
+        for source_path, source_entry in entries.items():
+            source_title = source_entry.get("title", "")
+            for target_path, target_title in entry_paths.items():
+                if target_path == source_path:
+                    continue
+                if target_title and (target_title in str(source_entry.get("wiki_links", []))
+                                     or f"[[{target_title}]]" in str(source_entry.get("wiki_links", []))):
+                    backlinks_map[target_path].append(source_path)
+        for p, bl in backlinks_map.items():
+            entries[p]["backlinks"] = bl
+
         # Save catalog.json
         with open(self.catalog_path, "w", encoding="utf-8") as f:
             json.dump(catalog, f, indent=2, ensure_ascii=False)

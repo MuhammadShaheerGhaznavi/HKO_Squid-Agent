@@ -27,8 +27,8 @@ def search_wiki(query: str) -> str: # search for wiki pages matching query
 
 @tool
 def read_page(path: str) -> str:
-    """Read the full content of a wiki page by its relative path (e.g., 'concepts/bigtable-data-model.md'). Use this after finding relevant pages via search_wiki."""
-    return _retriever.read_page(path)
+    """Read the full content of a wiki page by its relative path or title (e.g., 'concepts/bigtable-data-model.md' or page title 'Bigtable Data Model'). Auto-resolves titles to file paths. Use this after finding relevant pages via search_wiki."""
+    return _retriever.read_page_resolved(path)
 
 
 @tool
@@ -47,7 +47,7 @@ def get_related(path: str) -> str:
 
 @tool
 def read_raw_source(filename: str) -> str:
-    """Read a raw source file excerpt (e.g., 'bigtable.md'). Use only if the wiki notes lack details and you need the original document."""
+    """Read a raw source file excerpt (e.g., 'bigtable.md' or 'AIP_17july2026.pdf'). Use only if the wiki notes lack details and you need the original document. Supports .md, .txt, and .pdf files."""
     return _retriever.read_raw_source(filename)
 
 
@@ -60,17 +60,22 @@ Your job is to answer user questions by retrieving and synthesizing information 
 
 WORKFLOW:
 1. **Search first**: Always start with `search_wiki` to find relevant pages.
-2. **Read selectively**: After finding relevant pages, use `read_page` to get full content of the most promising 2-5 pages.
+2. **Read selectively**: After finding relevant pages, use `read_page` to get full content of the most promising 2-5 pages. You CAN pass page titles (e.g., 'Immigration Requirements') — they auto-resolve to file paths.
 3. **Explore connections**: Use `get_related` on key pages to discover linked concepts that may add context.
-4. **Cite sources**: When answering, cite the specific wiki pages you used.
+4. **Cite sources**: When answering, cite the specific wiki pages you used by their title.
 5. **Answer concisely**: Synthesize a clear, accurate answer grounded in the wiki content. Do not invent information.
 
+TERMINATION RULES:
+- You MUST provide an answer within 5 tool calls. Do not call tools more than 5 times.
+- If you cannot find the answer after 3 searches, state what you DO know and note the gap clearly.
+- If `read_page` returns "[Page not found]", do NOT retry the same path. Use the suggestions in the error message, or search for a different page.
+- If `search_wiki` returns similar results twice, stop searching and answer with what you have.
+
 RULES:
-- If search returns nothing, try a broader query or a different search term.
-- Do NOT read raw sources unless wiki notes are genuinely insufficient.
-- Do NOT loop indefinitely — after 3-4 tool calls you should have enough information to answer.
-- If the wiki doesn't contain the answer, say so clearly.
-- Keep answers grounded in the wiki content. Do not hallucinate."""
+- If search returns nothing, try ONE alternative search term, then answer with what you have.
+- Read raw sources ONLY if wiki notes lack critical details AND you know the exact source filename.
+- Keep answers grounded in the wiki content. Do not hallucinate.
+- If the wiki doesn't contain the answer, say so clearly and tell the user which section of the source document to check (e.g., GEN 1.3)."""
 
 
 class AgentState(TypedDict):

@@ -1,8 +1,11 @@
+import json
 import os
 import re
 import sys
+import time
 from pathlib import Path
-from typing import List, Literal, Optional, Dict, Any
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from typing import List, Literal, Optional, Dict, Any, Tuple
 from pydantic import BaseModel, Field
 from typing_extensions import TypedDict
 from dotenv import load_dotenv
@@ -61,6 +64,8 @@ class DocumentSection(BaseModel): ## Understand this !!! **
     level: int = Field(description="1 for top-level section, 2 for subsection within a parent section.")
     start_marker: str = Field(description="A ~50-80 character unique snippet from the beginning of this section (include the heading). Must be distinctive enough to locate via str.find() in the source text.")
     end_marker: str = Field(description="A ~50-80 character snippet from the beginning of the NEXT section in reading order. Use 'END_OF_DOC' for the last section.")
+    page_start: int = Field(default=0, description="PDF page number where this section starts (1-indexed, from TOC). 0 = not a PDF section.")
+    page_end: int = Field(default=0, description="PDF page number where NEXT section starts (1-indexed, from TOC). 0 = not a PDF section.")
 
 
 class DocumentStructure(BaseModel):
@@ -100,32 +105,59 @@ class IngestionState(TypedDict):
     sections: Optional[List[DocumentSection]]
     decomposition: Optional[DocumentDecomposition]
     generated_files: List[str]
+    toc: Optional[List[Dict[str, Any]]]  # Table of contents extracted from PDF
 
 
 # =====================================================================
-# 3. GRAPH NODES
+# 3. CONFIGURATION
+# =====================================================================
+
+SINGLE_PASS_THRESHOLD = 12000 ## If document under 12k chars, just use single pass LLM
+LLM_SAMPLED_THRESHOLD = 60000  ## Documents above this get regex/TOC-based chapters, not LLM
+BATCH_TARGET = 40000  ## chars per batch — increased from 10K for efficiency (DeepSeek = 128K context)
+MAX_PARALLEL_BATCHES = 4  ## concurrent LLM calls for batch extraction
+MAX_PARALLEL_MERGES = 4   ## concurrent LLM calls for note consolidation
+PROGRESS_DIR = Path(__file__).parent / ".ingestion_progress"
+
+
+# =====================================================================
+# 4. GRAPH NODES
 # =====================================================================
 
 def read_raw_document(state: IngestionState) -> Dict[str, Any]: # Handle .MD and .PDF files atm?
-    """Reads the raw source document from disk. Supports .md, .txt, and .pdf files."""
+    """Reads the raw source document from disk. Supports .md, .txt, and .pdf files.
+    For PDFs, also extracts the table of contents natively via PyMuPDF."""
     path = Path(state["raw_file_path"])
     if not path.exists():
         raise FileNotFoundError(f"Raw source file not found at: {path}")
 
     suffix = path.suffix.lower()
     source_id = path.stem
+    toc: Optional[List[Dict[str, Any]]] = None
 
     if suffix == ".pdf":
         import fitz # module to read/extract data from PDF files
         doc = fitz.open(str(path))
         content = "\n\n".join(page.get_text() for page in doc)
+
+        raw_toc = doc.get_toc(simple=False)  # returns list of (level, title, page, dest) tuples
+        if raw_toc:
+            toc = []
+            for entry in raw_toc:
+                toc.append({
+                    "level": entry[0],
+                    "title": entry[1].strip(),
+                    "page": entry[2],
+                })
+            print(f"📑 Extracted PDF TOC: {len(toc)} entries (levels: {set(e['level'] for e in toc)})")
+
         doc.close()
         print(f"📄 Loaded PDF document: {path.name} ({len(content)} characters)")
     else:
         content = path.read_text(encoding="utf-8")
         print(f"📄 Loaded source document: {path.name} ({len(content)} characters)")
 
-    return {"raw_content": content, "source_id": source_id}
+    return {"raw_content": content, "source_id": source_id, "toc": toc}
 
 
 def _create_llm():
@@ -170,21 +202,128 @@ def _find_marker(text: str, marker: str, start: int = 0) -> int:  ## UNDERSTAND 
     return -1
 
 
-SINGLE_PASS_THRESHOLD = 12000 ## If document under 12k tokens, just use single pass LLM
+def _select_toc_depth(toc: List[Dict[str, Any]]) -> int:
+    """Choose optimal TOC depth: finest level with >= 10 entries, else coarsest available."""
+    if not toc:
+        return 1
+    levels = sorted(set(e["level"] for e in toc))
+    counts = {lvl: sum(1 for e in toc if e["level"] == lvl) for lvl in levels}
+    for lvl in sorted(levels, reverse=True):
+        if counts[lvl] >= 10:
+            print(f"📑 TOC depth: using level-{lvl} ({counts[lvl]} entries) over level-{min(levels)} ({counts[min(levels)]} entries).")
+            return lvl
+    return max(levels)
 
 
-def analyze_structure(state: IngestionState) -> Dict[str, Any]:
-    """Phase 1: Identifies all sections/subsections in the document for targeted extraction.
-    Falls back to single-pass mode for short documents."""
-    content = state["raw_content"]
-    source_id = state["source_id"]
+def _extract_sections_from_toc(toc: List[Dict[str, Any]], total_pages: int) -> List[DocumentSection]:
+    """Build DocumentSection list from PyMuPDF TOC using page ranges (deterministic, no marker matching).
+    Selects optimal TOC depth automatically."""
+    if len(toc) < 2:
+        return []
 
-    if len(content) < SINGLE_PASS_THRESHOLD:
-        print(f"📄 Document is short ({len(content)} chars); using single-pass extraction.")
-        return {"sections": None}
+    depth = _select_toc_depth(toc)
+    filtered = [t for t in toc if t["level"] == depth]
 
+    # If chosen depth has < 2 entries, fall back to coarser
+    if len(filtered) < 2:
+        for alt_depth in sorted(set(e["level"] for e in toc)):
+            filtered = [t for t in toc if t["level"] == alt_depth]
+            if len(filtered) >= 2:
+                depth = alt_depth
+                break
+
+    if len(filtered) < 2:
+        return []
+
+    sections: List[DocumentSection] = []
+    for i, entry in enumerate(filtered):
+        title = entry["title"]
+        section_id = re.sub(r"[^\w\-_]", "-", title.lower()).strip("-")[:40]
+        page_start = entry["page"]  # 1-indexed from PyMuPDF
+
+        if i < len(filtered) - 1:
+            page_end = filtered[i + 1]["page"]
+        else:
+            page_end = total_pages + 1  # extends to end of document
+
+        # Keep markers as fallback for non-PDF documents, derive from title
+        start_marker = title
+        end_marker = filtered[i + 1]["title"] if i < len(filtered) - 1 else "END_OF_DOC"
+
+        sections.append(DocumentSection(
+            section_id=section_id or f"section-{i+1}",
+            title=title,
+            level=depth,
+            start_marker=start_marker,
+            end_marker=end_marker,
+            page_start=page_start,
+            page_end=page_end,
+        ))
+
+    return sections
+
+
+def _extract_sections_from_regex(content: str) -> List[DocumentSection]:
+    """Regex-based chapter/section detection as fallback when TOC is unavailable."""
+    patterns = [
+        # Numbered: "1. Section Name", "1.1 Subsection", "Chapter 1"
+        r'^[#]{0,3}\s*(?:Chapter\s+)?(\d+(?:\.\d+)*)\s+[A-Z].+$',
+        # ALL CAPS line followed by content (common in government/legal docs)
+        r'^([A-Z][A-Z\s\-]{10,})$',
+        # Roman numeral: "I. Introduction"
+        r'^(?=[MDCLXVI]+\.\s)[MDCLXVI]+\.\s+[A-Z].+$',
+    ]
+
+    lines = content.split("\n")
+    headings: List[Tuple[int, str]] = []
+
+    for idx, line in enumerate(lines):
+        stripped = line.strip()
+        if not stripped or len(stripped) < 4:
+            continue
+
+        for pattern in patterns:
+            if re.match(pattern, stripped):
+                headings.append((idx, stripped))
+                break
+
+    if len(headings) < 3:
+        return []
+
+    sections = []
+    for i, (line_idx, title) in enumerate(headings):
+        section_id = re.sub(r"[^\w\-_]", "-", title.lower()).strip("-")[:40]
+        start_marker = title
+
+        if i < len(headings) - 1:
+            end_marker = headings[i + 1][1]
+        else:
+            end_marker = "END_OF_DOC"
+
+        sections.append(DocumentSection(
+            section_id=section_id or f"section-{i+1}",
+            title=title,
+            level=1,
+            start_marker=start_marker,
+            end_marker=end_marker,
+        ))
+
+    return sections
+
+
+def _extract_sections_from_llm(content: str, source_id: str) -> List[DocumentSection]:
+    """LLM-based structure analysis as last resort for medium-sized documents.
+    For very large documents, samples the document instead of sending full content."""
     llm = _create_llm()
     structured_llm = llm.with_structured_output(DocumentStructure, method="json_mode") ## parses the raw string (json) directly into an instance of DocumentStructure
+
+    # For large docs, sample: first 15K + last 10K chars + page numbers to reduce tokens
+    if len(content) > LLM_SAMPLED_THRESHOLD:
+        sample = content[:15000] + "\n\n[... middle of document omitted ...]\n\n" + content[-10000:]
+        print(f"📐 Document is large ({len(content)} chars); sending {len(sample)}-char sample for structure analysis.")
+        doc_content = sample
+    else:
+        doc_content = content
 
     system_prompt = """You are a document structure analyzer. Your job is to identify TOP-LEVEL CHAPTERS (not subsections) so each can be processed individually for knowledge extraction.
 
@@ -201,12 +340,12 @@ Rules:
 
 Output pure JSON matching the schema exactly. Do not omit any fields."""
 
-    human_message = f"Document title/ID: {source_id}\n\nFull document content:\n{content}"
+    human_message = f"Document title/ID: {source_id}\n\nDocument content:\n{doc_content}"
     prompt = ChatPromptTemplate.from_messages([
             ("system", system_prompt),
             ("human", "{human_message}")
         ])
-    
+
     chain = prompt | structured_llm ## Understand this chaining and pipeline **
     result: DocumentStructure = chain.invoke({
         "human_message": human_message
@@ -223,50 +362,143 @@ Output pure JSON matching the schema exactly. Do not omit any fields."""
         first_lines = result.sections[0].start_marker.split("\n")
         result.document_title = first_lines[0].strip() if first_lines else source_id
 
-    print(f"📑 Identified {len(result.sections)} chapters in '{result.document_title}'.")
-    for s in result.sections:
+    print(f"📑 LLM identified {len(result.sections)} chapters in '{result.document_title}'.")
+    return result.sections
+
+
+def analyze_structure(state: IngestionState) -> Dict[str, Any]:
+    """Phase 1: Identifies all sections in the document for targeted extraction.
+
+    Strategy (in priority order):
+    1. PDF TOC with adaptive depth + page ranges (deterministic, instant, no API cost)
+    2. Regex-based heading detection (fast, no API cost)
+    3. LLM with sampling for large docs (API call with reduced content)
+    4. LLM full-pass for medium docs (API call with full content)
+    5. Single-pass for short docs (< 12K chars)
+    """
+    content = state["raw_content"]
+    source_id = state["source_id"]
+    toc = state.get("toc")
+    raw_path = state["raw_file_path"]
+
+    if len(content) < SINGLE_PASS_THRESHOLD:
+        print(f"📄 Document is short ({len(content)} chars); using single-pass extraction.")
+        return {"sections": None}
+
+    # Strategy 1: PDF TOC with page ranges (deterministic)
+    if toc and raw_path.lower().endswith(".pdf"):
+        try:
+            import fitz
+            doc = fitz.open(raw_path)
+            total_pages = doc.page_count
+            doc.close()
+        except Exception:
+            total_pages = 1000  # conservative fallback
+
+        sections = _extract_sections_from_toc(toc, total_pages)
+        if len(sections) >= 2:
+            print(f"📑 PDF TOC (level-{sections[0].level if sections else '?'}): "
+                  f"{len(sections)} chapters via page ranges.")
+            for s in sections[:8]:
+                print(f"  [{s.section_id}] pp.{s.page_start}-{s.page_end} {s.title}")
+            if len(sections) > 8:
+                print(f"  ... and {len(sections) - 8} more")
+            return {"sections": sections}
+        print("⚠️  PDF TOC had insufficient entries; trying regex...")
+
+    # Strategy 2: Regex-based heading detection
+    sections = _extract_sections_from_regex(content)
+    if len(sections) >= 3:
+        print(f"📑 Using regex headings: {len(sections)} chapters identified.")
+        for s in sections:
+            print(f"  [{s.section_id}] {s.title}")
+        return {"sections": sections}
+    print("⚠️  Regex detection found insufficient headings; falling back to LLM...")
+
+    # Strategy 3/4: LLM (with sampling for large docs)
+    sections = _extract_sections_from_llm(content, source_id)
+    for s in sections:
         print(f"  [{s.section_id}] {s.title}")
 
-    return {"sections": result.sections}
+    return {"sections": sections}
 
 
 def extract_section_notes(state: IngestionState) -> Dict[str, Any]:  # processes wiki notes from the entire document
     """Phase 2: Extracts wiki notes from each section (or batch of small sections).
-    Falls back to single-pass extraction if no sections available."""
+    Falls back to single-pass extraction if no sections available.
+    Uses parallel batch processing for large documents."""
     sections = state.get("sections")
     content = state["raw_content"]
     source_id = state["source_id"]
+    raw_file_path = state.get("raw_file_path", "")
 
     if sections is None:
         return _extract_single_pass(content, source_id)
 
-    all_notes: List[ExtractedWikiNote] = []
-    processed = 0
-
-    batches = _build_section_batches(sections, content)
+    batches = _build_section_batches(sections, content, raw_file_path)
 
     if not batches:
         print("⚠️  No sections could be located; falling back to single-pass extraction.")
         return _extract_single_pass(content, source_id)
 
-    print(f"🤖 Processing {len(sections)} sections in {len(batches)} batch(es)...")
+    print(f"🤖 Processing {len(sections)} sections in {len(batches)} batch(es) "
+          f"[parallel workers={MAX_PARALLEL_BATCHES}]...")
 
-    for batch_idx, batch in enumerate(batches):
-        batch_text = "\n\n".join(
-            f"### Section: {s.title}\n{t}" for s, t in batch
-        )
+    all_notes: List[ExtractedWikiNote] = []
+    progress_data = _load_progress(source_id)
+    completed_batches = set(progress_data.get("completed_batches", []))
 
-        try:
-            notes = _extract_from_batch(batch_text, source_id) # sends back wiki notes extracted from the batch
-        except Exception as e:
-            section_labels = ", ".join(s.title for s, _ in batch)
-            print(f"  ⚠️  Batch {batch_idx + 1} [{section_labels}] failed: {e}")
-            notes = []
+    # Check for resume: skip already-completed batches
+    pending_batches = [(idx, batch) for idx, batch in enumerate(batches)
+                       if idx not in completed_batches]
 
-        section_labels = ", ".join(s.title for s, _ in batch)
-        print(f"  Batch {batch_idx + 1}/{len(batches)} [{section_labels}]: {len(notes)} notes")
-        all_notes.extend(notes)
-        processed += len(batch)
+    if len(completed_batches) > 0:
+        print(f"🔄 Resuming: {len(completed_batches)} batches already done, {len(pending_batches)} remaining.")
+        for idx in completed_batches:
+            batch_notes = progress_data.get("batch_results", {}).get(str(idx), [])
+            all_notes.extend([ExtractedWikiNote(**n) for n in batch_notes])
+
+    if pending_batches:
+        def _process_single_batch(idx: int, batch: List[tuple]) -> Tuple[int, List[Dict], Optional[str]]:
+            batch_text = "\n\n".join(
+                f"### Section: {s.title}\n{t}" for s, t in batch
+            )
+            try:
+                notes = _extract_from_batch(batch_text, source_id) # sends back wiki notes extracted from the batch
+                notes_dicts = [n.model_dump() for n in notes]
+                return idx, notes_dicts, None
+            except Exception as e:
+                return idx, [], str(e)
+
+        with ThreadPoolExecutor(max_workers=MAX_PARALLEL_BATCHES) as executor:
+            futures = {
+                executor.submit(_process_single_batch, idx, batch): idx
+                for idx, batch in pending_batches
+            }
+
+            for future in as_completed(futures):
+                idx = futures[future]
+                try:
+                    batch_idx, notes_dicts, error = future.result()
+                except Exception as e:
+                    print(f"  ⚠️  Batch {idx + 1} failed: {e}")
+                    continue
+
+                batch = batches[batch_idx]
+                section_labels = ", ".join(s.title for s, _ in batch)
+
+                if error:
+                    print(f"  ⚠️  Batch {batch_idx + 1}/{len(batches)} [{section_labels}] failed: {error}")
+                else:
+                    notes = [ExtractedWikiNote(**nd) for nd in notes_dicts]
+                    all_notes.extend(notes)
+                    print(f"  Batch {batch_idx + 1}/{len(batches)} [{section_labels}]: {len(notes)} notes")
+
+                # Save progress after each batch
+                _save_progress(source_id, batch_idx, notes_dicts)
+
+        # Clear progress file on success
+        _clear_progress(source_id)
 
     decomposition = DocumentDecomposition(
         source_title=source_id,
@@ -331,8 +563,16 @@ JSON Schema format to follow:
     return {"decomposition": result}
 
 
-def _build_section_batches(sections: List[DocumentSection], text: str) -> List[List[tuple]]:
-    """Splits document into section text chunks using markers, then batches small adjacent sections."""
+def _build_section_batches(sections: List[DocumentSection], text: str,
+                         raw_file_path: str = "") -> List[List[tuple]]:
+    """Splits document into section text chunks using markers, or page ranges for PDFs.
+    Page-range extraction is deterministic — no fragile text matching needed."""
+    has_page_ranges = sections and sections[0].page_start > 0 and raw_file_path.lower().endswith(".pdf")
+
+    if has_page_ranges:
+        return _build_batches_from_pages(sections, raw_file_path)
+
+    # Standard marker-based extraction (for non-PDF or fallback)
     section_chunks = []
 
     for section in sections:
@@ -354,16 +594,52 @@ def _build_section_batches(sections: List[DocumentSection], text: str) -> List[L
         if len(chunk) > 80: # if chunk smaller than 80 characters then ignore it
             section_chunks.append((section, chunk)) # appending tuple of section and chunk
 
+    return _pack_section_chunks_into_batches(section_chunks)
+
+
+def _build_batches_from_pages(sections: List[DocumentSection], pdf_path: str) -> List[List[tuple]]:
+    """Extract text by page ranges from the PDF (deterministic, no marker matching)."""
+    import fitz
+    doc = fitz.open(pdf_path)
+    total = doc.page_count
+
+    section_chunks: List[tuple] = []
+    for section in sections:
+        start = max(1, section.page_start) - 1  # convert 1-indexed to 0-indexed
+        end = min(section.page_end - 1, total) if section.page_end > 0 else total
+
+        if start >= total:
+            print(f"  ⚠️  Section '{section.title}' page {section.page_start} beyond document end ({total} pages), skipping.")
+            continue
+        if end <= start:
+            end = min(start + 1, total)
+
+        text_parts = []
+        for p in range(start, end):
+            try:
+                text_parts.append(doc[p].get_text())
+            except Exception:
+                pass
+
+        chunk = "\n\n".join(text_parts).strip()
+        if len(chunk) > 80:
+            section_chunks.append((section, chunk))
+
+    doc.close()
+    return _pack_section_chunks_into_batches(section_chunks)
+
+
+def _pack_section_chunks_into_batches(section_chunks: List[tuple]) -> List[List[tuple]]:
+    """Group section chunks into batches not exceeding BATCH_TARGET characters."""
     batches = []
     current_batch = []
     current_chars = 0
-    BATCH_TARGET = 10000
 
     for section, chunk in section_chunks:
         chunk_len = len(chunk)
 
         if current_chars + chunk_len > BATCH_TARGET and current_batch: 
-            # if current chars in batch + this chunk exceeds 10,000 chars then 'seal' the current batch and start a new one
+            # if current chars in batch + this chunk exceeds BATCH_TARGET chars then 'seal' the current batch and start a new one
             batches.append(current_batch)
             current_batch = []
             current_chars = 0
@@ -394,14 +670,15 @@ Rules:
    - Combine all API operations into ONE "Bigtable API" note with sub-detail
    - Do NOT create separate notes for each benchmark — combine them into a unified performance note
 3. Each note must be self-contained but substantive. Content bodies should be 4-10 sentences with specific details, numbers, mechanisms, and examples from the text.
-4. For each note provide:
+4. PRESERVE REFERENCE DATA: If the source contains tables, enumerated lists, country-specific regulations, numeric thresholds, location names, or specific requirements, you MUST include ALL the specific entries in the content_body. Do NOT collapse a list of 15 countries into 'varies by nationality' — list them. Do NOT replace exact numbers with 'certain thresholds' — state the numbers.
+5. For each note provide:
    - title: clear, concise, not overly specific
    - type: 'concept', 'entity', 'procedure', or 'synthesis'
    - summary: brief 1-2 sentence description
    - keywords: 3-5 searchable tags
-   - content_body: detailed markdown explanation with specific facts from the text
-5. Use [[wiki-link]] syntax for cross-references to related concepts.
-6. Output pure JSON matching the schema exactly. Wrap all notes in a top-level "notes" array key."""
+   - content_body: detailed markdown explanation with specific facts from the text, including all tables, thresholds, and enumerated data where present
+6. Use [[wiki-link]] syntax for cross-references to related concepts.
+7. Output pure JSON matching the schema exactly. Wrap all notes in a top-level "notes" array key."""
 
     prompt = ChatPromptTemplate.from_messages([
         ("system", system_prompt),
@@ -419,7 +696,8 @@ Rules:
 
 
 def consolidate_notes(state: IngestionState) -> Dict[str, Any]:
-    """Phase 3: Merges redundant/similar notes using title-similarity clustering and LLM consolidation."""
+    """Phase 3: Merges redundant/similar notes using title-similarity clustering and LLM consolidation.
+    Uses parallel merge calls for efficiency with large note sets."""
     decomposition = state["decomposition"]
     notes = decomposition.notes
     if len(notes) < 5:
@@ -456,21 +734,54 @@ def consolidate_notes(state: IngestionState) -> Dict[str, Any]:
         print("ℹ️  No redundant notes found; skipping consolidation.")
         return {}
 
-    print(f"🧹 Consolidating {len(mergeable)} cluster(s) of similar notes ({sum(c[1] for c in mergeable)} notes total)...")
+    total_mergeable = sum(c[1] for c in mergeable)
+    print(f"🧹 Consolidating {len(mergeable)} cluster(s) of similar notes "
+          f"({total_mergeable} notes total) [max {MAX_PARALLEL_MERGES} parallel]...")
 
     merged_notes: List[ExtractedWikiNote] = []
     merged_set = set()
 
-    for cluster, _ in mergeable:
-        cluster_notes = [notes[i] for i in cluster]
-        merged_set.update(cluster)
+    if len(mergeable) <= 2:
+        # Sequential for small clusters
+        for cluster, _ in mergeable:
+            cluster_notes = [notes[i] for i in cluster]
+            merged_set.update(cluster)
+            merged = _merge_cluster(cluster_notes)
+            if merged:
+                merged_notes.append(merged)
+                print(f"  ✓ Merged {len(cluster_notes)} notes → '{merged.title}'")
+            else:
+                merged_notes.extend(cluster_notes)
+    else:
+        # Parallel for many clusters
+        cluster_data: List[Tuple[set, List[ExtractedWikiNote]]] = [
+            (set(cluster), [notes[i] for i in cluster]) for cluster, _ in mergeable
+        ]
 
-        merged = _merge_cluster(cluster_notes)
-        if merged:
-            merged_notes.append(merged)
-            print(f"  ✓ Merged {len(cluster_notes)} notes → '{merged.title}'")
-        else:
-            merged_notes.extend(cluster_notes)
+        with ThreadPoolExecutor(max_workers=MAX_PARALLEL_MERGES) as executor:
+            merge_futures = {
+                executor.submit(_merge_cluster, cn): idx
+                for idx, (cl_set, cn) in enumerate(cluster_data)
+            }
+
+            # Collect results in order of submission for deterministic output
+            results_by_idx: Dict[int, Optional[ExtractedWikiNote]] = {}
+            for future in as_completed(merge_futures):
+                idx = merge_futures[future]
+                try:
+                    results_by_idx[idx] = future.result()
+                except Exception as e:
+                    print(f"  ⚠️  Merge {idx + 1} failed: {e}")
+                    results_by_idx[idx] = None
+
+            for idx, (cl_set, cn) in enumerate(cluster_data):
+                merged = results_by_idx.get(idx)
+                merged_set.update(cl_set)
+                if merged:
+                    merged_notes.append(merged)
+                    print(f"  ✓ Merged {len(cn)} notes → '{merged.title}'")
+                else:
+                    merged_notes.extend(cn)
 
     kept_notes = [notes[i] for i in range(len(notes)) if i not in merged_set]
     all_notes = kept_notes + merged_notes
@@ -580,7 +891,43 @@ def sync_wiki_catalog(state: IngestionState) -> Dict[str, Any]:
 
 
 # =====================================================================
-# 4. WORKFLOW GRAPH BUILDER
+# 5. PROGRESS TRACKING (Resume support)
+# =====================================================================
+
+def _progress_path(source_id: str) -> Path:
+    PROGRESS_DIR.mkdir(parents=True, exist_ok=True)
+    return PROGRESS_DIR / f"{source_id}.json"
+
+
+def _load_progress(source_id: str) -> Dict[str, Any]:
+    path = _progress_path(source_id)
+    if path.exists():
+        try:
+            return json.loads(path.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, FileNotFoundError):
+            pass
+    return {"completed_batches": [], "batch_results": {}}
+
+
+def _save_progress(source_id: str, batch_idx: int, notes_dicts: List[Dict]):
+    progress = _load_progress(source_id)
+    completed = set(progress.get("completed_batches", []))
+    completed.add(batch_idx)
+    progress["completed_batches"] = sorted(completed)
+    progress["batch_results"] = progress.get("batch_results", {})
+    progress["batch_results"][str(batch_idx)] = notes_dicts
+    progress["last_updated"] = time.strftime("%Y-%m-%d %H:%M:%S")
+    _progress_path(source_id).write_text(json.dumps(progress, indent=2), encoding="utf-8")
+
+
+def _clear_progress(source_id: str):
+    path = _progress_path(source_id)
+    if path.exists():
+        path.unlink()
+
+
+# =====================================================================
+# 6. WORKFLOW GRAPH BUILDER
 # =====================================================================
 
 def build_ingestion_graph():
@@ -605,7 +952,7 @@ def build_ingestion_graph():
 
 
 # =====================================================================
-# 5. EXECUTION ENTRY POINT
+# 7. EXECUTION ENTRY POINT
 # =====================================================================
 
 if __name__ == "__main__":
@@ -624,7 +971,8 @@ if __name__ == "__main__":
         "raw_content": "",
         "sections": None,
         "decomposition": None,
-        "generated_files": []
+        "generated_files": [],
+        "toc": None,
     }
 
     try:
@@ -632,3 +980,5 @@ if __name__ == "__main__":
         print("\n🎉 Ingestion complete!")
     except Exception as e:
         print(f"\n❌ Ingestion failed: {e}")
+        import traceback
+        traceback.print_exc()

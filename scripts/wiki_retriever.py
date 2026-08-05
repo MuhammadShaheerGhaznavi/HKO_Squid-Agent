@@ -8,7 +8,7 @@ from dataclasses import dataclass, field
 import tiktoken # Tiktoken is a fast, byte pair encoding (BPE) tokenizer - helps estimate token costs etc
 
 from config import (
-    WIKI_DIR, RAW_DIR, CATALOG_FILE, TOP_K_SEARCH,
+    WIKI_DIR, RAW_DIR, RAW_SOURCES_DIR, CATALOG_FILE, TOP_K_SEARCH,
     MAX_TOKENS_PER_PAGE, MAX_CHUNK_TOKENS, CHUNK_OVERLAP_TOKENS,
 )
 
@@ -36,6 +36,7 @@ class CatalogEntry: # keep track of catalog entries
     sources: List[str]
     wiki_links: List[str]
     last_updated: str
+    backlinks: List[str] = field(default_factory=list)  # precomputed in catalog.json
 
     @property # what this
     def searchable_text(self) -> str:
@@ -81,6 +82,7 @@ class WikiRetriever:
                 keywords=e.get("keywords", []),
                 sources=e.get("sources", []),
                 wiki_links=e.get("wiki_links", []),
+                backlinks=e.get("backlinks", []),
                 last_updated=e.get("last_updated", ""),
             )
             self._catalog[ce.path] = ce
@@ -260,10 +262,17 @@ class WikiRetriever:
                     continue
                 linked.append(link)
 
-        backlinks = self._get_backlinks(path if "." in path else path + ".md")
-        for bl in backlinks:
-            if bl not in linked:
-                linked.append(bl)
+        # Use precomputed backlinks from catalog (fast O(1) lookup)
+        if entry.backlinks:
+            for bl in entry.backlinks:
+                if bl not in linked:
+                    linked.append(bl)
+        else:
+            # Fallback: scan files (slow, for catalogs built before backlink support)
+            backlinks = self._get_backlinks(path if "." in path else path + ".md")
+            for bl in backlinks:
+                if bl not in linked:
+                    linked.append(bl)
 
         return linked[:8]
 
@@ -284,14 +293,123 @@ class WikiRetriever:
         return backlinks
 
     def read_raw_source(self, filename: str, max_tokens: int = 3000) -> str:
-        target = RAW_DIR / filename.lstrip("/")
-        if not target.exists():
+        # Check raw/sources/ first, then raw/
+        for base_dir in (RAW_SOURCES_DIR, RAW_DIR):
+            target = base_dir / filename.lstrip("/")
+            if target.exists():
+                break
+        else:
             return f"[Raw source not found: {filename}]"
+
+        suffix = target.suffix.lower()
+        if suffix == ".pdf":
+            try:
+                import fitz
+                doc = fitz.open(str(target))
+                content_parts = []
+                tok_count = 0
+                for page in doc:
+                    text = page.get_text()
+                    pt = count_tokens(text)
+                    if tok_count + pt > max_tokens:
+                        remaining = max_tokens - tok_count
+                        if remaining > 0:
+                            content_parts.append(_token_trim(text, remaining))
+                        content_parts.append("\n\n[... PDF truncated — document is large ...]")
+                        break
+                    content_parts.append(text)
+                    tok_count += pt
+                doc.close()
+                content = "\n\n".join(content_parts)
+                return _token_trim(content, max_tokens)
+            except Exception as e:
+                return f"[Error reading raw PDF {filename}: {e}]"
+
         try:
             content = target.read_text(encoding="utf-8")
         except Exception as e:
             return f"[Error reading raw source {filename}: {e}]"
         return _token_trim(content, max_tokens)
+
+    def resolve_page_path(self, title_or_link: str) -> Optional[str]:
+        """Resolve a wiki-link title to an actual file path via fuzzy matching against catalog entries."""
+        clean = title_or_link.strip().rstrip(".md")
+        # Handle pipe syntax: [[Page Name|Display Text]]
+        if "|" in clean:
+            clean = clean.split("|")[0].strip()
+        # Handle wikilink brackets
+        clean = clean.lstrip("[[").rstrip("]]").strip()
+
+        if not clean:
+            return None
+
+        # Exact title match
+        clean_lower = clean.lower()
+        for entry in self._entries_list:
+            if entry.title.lower() == clean_lower:
+                return entry.path
+
+        # Exact path match (if already a valid path)
+        if clean in self._catalog or f"{clean}.md" in self._catalog:
+            return clean if clean in self._catalog else f"{clean}.md"
+
+        # Check if query is a substring of any title
+        for entry in self._entries_list:
+            if clean_lower in entry.title.lower():
+                return entry.path
+
+        # Check if ALL query words appear in a title (order-independent)
+        query_terms = clean_lower.split()
+        if len(query_terms) > 1:
+            for entry in self._entries_list:
+                title_lower = entry.title.lower()
+                if all(term in title_lower for term in query_terms):
+                    return entry.path
+
+        # Fuzzy: word-overlap score against titles
+        query_words = set(clean_lower.split())
+        if not query_words:
+            return None
+
+        best_score = 0.0
+        best_path = None
+        for entry in self._entries_list:
+            title_words = set(entry.title.lower().split())
+            overlap = len(query_words & title_words)
+            score = overlap / len(query_words)
+            if score > best_score and score >= 0.35:
+                best_score = score
+                best_path = entry.path
+
+        return best_path
+
+    def read_page_resolved(self, path_or_title: str, max_tokens: int = MAX_TOKENS_PER_PAGE) -> str:
+        """Read a wiki page by path OR title. Auto-resolves titles to file paths."""
+        content = self.read_page(path_or_title, max_tokens)
+        if not content.startswith("[Page not found:"):
+            return content
+
+        resolved = self.resolve_page_path(path_or_title)
+        if resolved:
+            return f"[Resolved '{path_or_title}' → '{resolved}']\n\n" + self.read_page(resolved, max_tokens)
+
+        # Show suggestions
+        suggestions = []
+        query_words = set(path_or_title.lower().split())
+        if query_words:
+            scored = []
+            for entry in self._entries_list:
+                title_words = set(entry.title.lower().split())
+                overlap = len(query_words & title_words)
+                if overlap > 0:
+                    scored.append((overlap / len(query_words), entry))
+
+            scored.sort(key=lambda x: -x[0])
+            for _, entry in scored[:5]:
+                suggestions.append(f"  - {entry.title} (`{entry.path}`)")
+
+        suggestion_text = "\n".join(suggestions) if suggestions else "No similar pages found."
+        return f"[Page not found: {path_or_title}]\nDid you mean:\n{suggestion_text}"
 
     def format_search_results(self, results: List[SearchResult]) -> str:
         if not results:
