@@ -1,0 +1,107 @@
+[
+  {
+    "id": "Q1",
+    "question": "Where should fixed wing aircraft coming to Hong Kong first land when they arrive?",
+    "expected_keywords": ["Hong Kong International Airport"],
+    "expected_section": "GEN 3.1",
+    "type": "factual"
+  },
+  {
+    "id": "Q2",
+    "question": "Can a hypersonic jet land in Hong Kong International Airport?",
+    "expected_keywords": ["No", "Civil Aviation Ordinance", "Cap.312", "approval"],
+    "expected_section": "GEN 1",
+    "type": "yes_no"
+  },
+  {
+    "id": "Q3",
+    "question": "Who may travel for free in Hong Kong?",
+    "expected_keywords": ["infant", "2", "tour conductor", "security guard", "aeronautical authority"],
+    "expected_section": "GEN 1",
+    "type": "enumeration"
+  },
+  {
+    "id": "Q4",
+    "question": "Do transit flights over HKFIR need to apply for a permit from CAD?",
+    "expected_keywords": ["No", "state aircraft", "military", "munition", "dangerous goods", "Director-General"],
+    "expected_section": "GEN 1",
+    "type": "yes_no"
+  },
+  {
+    "id": "Q5",
+    "question": "Is a VISA needed for an air traveler from Vietnam to Hong Kong?",
+    "expected_keywords": ["Yes", "required", "GEN 1.3"],
+    "expected_section": "GEN 1.3",
+    "type": "yes_no"
+  },
+  {
+    "id": "Q6",
+    "question": "If there is a dead passenger on board an aircraft arriving in Hong Kong, to which organization should the pilot notify?",
+    "expected_keywords": ["Airport Authority"],
+    "expected_section": "GEN 1",
+    "type": "factual"
+  },
+  {
+    "id": "Q7",
+    "question": "For import of seafood into Hong Kong, is a licence of import required?",
+    "expected_keywords": ["No", "GEN 1.4"],
+    "expected_section": "GEN 1.4",
+    "type": "yes_no"
+  },
+  {
+    "id": "Q8",
+    "question": "If I have a helicopter of 2 tonnes, should it be equipped with radio equipment for ILS when flying in Hong Kong?",
+    "expected_keywords": ["No", "GEN 1.4"],
+    "expected_section": "GEN 1.4",
+    "type": "yes_no"
+  },
+  {
+    "id": "Q9",
+    "question": "What does VHSK mean in Hong Kong aviation?",
+    "expected_keywords": ["Sek Kong", "Yuen Long", "GEN 2.4"],
+    "expected_section": "GEN 2.4",
+    "type": "factual"
+  },
+  {
+    "id": "Q10",
+    "question": "When does twilight on 3 May start in Hong Kong?",
+    "expected_keywords": ["05:28", "GEN 2.7"],
+    "expected_section": "GEN 2.7",
+    "type": "numeric"
+  },
+  {
+    "id": "Q11",
+    "question": "What is the work responsibility of the Airport Meteorological Office (AMO) at Hong Kong airport?",
+    "expected_keywords": ["meteorological watch office", "SIGMET", "aerodrome meteorological office", "aeronautical meteorological station", "HKIA", "Hong Kong FIR", "GEN 3.5"],
+    "expected_section": "GEN 3.5",
+    "type": "multi_fact"
+  },
+  {
+    "id": "Q12",
+    "question": "From where can we find the criteria for the issuance of special meteorological observations reports in Hong Kong?",
+    "expected_keywords": ["ICAO", "PANS-MET", "Doc 10157", "crosswind", "20 kt", "AMIDS", "GEN 3.1"],
+    "expected_section": "GEN 3.1",
+    "type": "multi_fact"
+  },
+  {
+    "id": "Q13",
+    "question": "What is the area of the airport covered by the local routine weather report in Hong Kong?",
+    "expected_keywords": ["8 km", "radius", "aerodrome reference point", "GEN 3.1"],
+    "expected_section": "GEN 3.1",
+    "type": "numeric"
+  },
+  {
+    "id": "Q14",
+    "question": "How many types of alerts are provided by WTWS for airport traffic control, and what are they?",
+    "expected_keywords": ["3", "Microburst", "Wind Shear", "Turbulence", "30 kt", "15 kt", "GEN 3.1"],
+    "expected_section": "GEN 3.1",
+    "type": "multi_fact"
+  },
+  {
+    "id": "Q15",
+    "question": "Why are hilltop winds provided to pilots at Hong Kong International Airport?",
+    "expected_keywords": ["final approach", "2500 ft", "35 kt", "Yi Tung Shan", "Nei Lak Shan", "ATIS", "GEN 3.1"],
+    "expected_section": "GEN 3.1",
+    "type": "explanation"
+  }
+]

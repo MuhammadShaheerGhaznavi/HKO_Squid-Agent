@@ -1,9 +1,15 @@
 import os
 from pathlib import Path
-from dotenv import load_dotenv
 
-load_dotenv()
-DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY")
+# Try Streamlit secrets first (cloud deployment), fall back to .env (local)
+try:
+    import streamlit as st
+    DEEPSEEK_API_KEY = st.secrets["DEEPSEEK_API_KEY"]
+except Exception:
+    from dotenv import load_dotenv
+    load_dotenv()
+    DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY")
+
 DEEPSEEK_BASE_URL = "https://api.deepseek.com/v1"
 LLM_MODEL = "deepseek-chat"
 

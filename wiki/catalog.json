@@ -1,0 +1,2649 @@
+{
+  "last_updated": "2026-08-10T23:35:52.956914",
+  "entries": {
+    "concepts/additional-information-for-vhhh--parking--docking--and-special-operations.md": {
+      "title": "Additional Information for VHHH: Parking, Docking, and Special Operations",
+      "type": "concept",
+      "summary": "Additional airport information including aircraft parking stands, Safegate docking system, RETO operations, and maritime vessel effects on procedures.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "parking stands",
+        "Safegate",
+        "RETO",
+        "maritime vessels",
+        "VHHH"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/additional-information-for-vhhh--parking--docking--and-special-operations.md",
+      "backlinks": []
+    },
+    "concepts/aerodrome-availability-and-runway-operations-at-hong-kong-international-airport.md": {
+      "title": "Aerodrome Availability and Runway Operations at Hong Kong International Airport",
+      "type": "concept",
+      "summary": "This note consolidates information about aerodrome availability, operating minima, and runway operations at Hong Kong International Airport (VHHH), including take-off and landing minima, three-runway operations, and segregated/mixed mode procedures.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "Hong Kong International Airport",
+        "operating minima",
+        "runway operations",
+        "three-runway",
+        "segregated mode",
+        "AOM"
+      ],
+      "wiki_links": [
+        "Runway Utilisation and Reduced Runway Separation Minima at Hong Kong International Airport",
+        "Aerodrome Operating Minima",
+        "Low Visibility Operations at Hong Kong International Airport",
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/aerodrome-availability-and-runway-operations-at-hong-kong-international-airport.md",
+      "backlinks": []
+    },
+    "concepts/aerodrome-heliport-charges-at-hong-kong-international-airport-and-sky-shuttle-heliport.md": {
+      "title": "Aerodrome/Heliport Charges at Hong Kong International Airport and Sky Shuttle Heliport",
+      "type": "concept",
+      "summary": "Details of charges applicable at Hong Kong International Airport and Sky Shuttle Heliport, including landing, parking, airbridge, terminal building charges, air passenger departure tax, and other charges.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "charges",
+        "Hong Kong",
+        "airport",
+        "heliport",
+        "departure tax"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/aerodrome-heliport-charges-at-hong-kong-international-airport-and-sky-shuttle-heliport.md",
+      "backlinks": []
+    },
+    "concepts/aeronautical-information-services-in-hong-kong.md": {
+      "title": "Aeronautical Information Services in Hong Kong",
+      "type": "concept",
+      "summary": "Hong Kong's aeronautical information, charts, air traffic services, communication, and terminal transition routes are managed by the Civil Aviation Department (CAD) under ICAO standards. Key services include the AIMC for AIS, various chart series, ATS for the FIR, communication networks, and designated terminal routes.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "AIS",
+        "AIMC",
+        "Hong Kong",
+        "AIP",
+        "NOTAM",
+        "ATS"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/aeronautical-information-services-in-hong-kong.md",
+      "backlinks": []
+    },
+    "concepts/aip-hong-kong--overview-and-structure.md": {
+      "title": "AIP Hong Kong: Overview and Structure",
+      "type": "concept",
+      "summary": "The Aeronautical Information Publication (AIP) for Hong Kong is published by the Director-General of Civil Aviation, Civil Aviation Department, in accordance with ICAO standards. It is part of the Integrated Aeronautical Information Package and consists of three parts: General (GEN), En-route (ENR), and Aerodromes (AD), each with specific sections and subsections. Regular amendments are issued every 28 days on AIRAC effective dates.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "AIP",
+        "Hong Kong",
+        "Civil Aviation Department",
+        "ICAO",
+        "structure",
+        "amendment"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/aip-hong-kong--overview-and-structure.md",
+      "backlinks": []
+    },
+    "concepts/aip-hong-kong-gen-2--abbreviations--chart-symbols--and-conversion-tables.md": {
+      "title": "AIP Hong Kong GEN 2: Abbreviations, Chart Symbols, and Conversion Tables",
+      "type": "concept",
+      "summary": "This note covers three sections of the AIP Hong Kong GEN 2: abbreviations (GEN 2.2), chart symbols (GEN 2.3), and conversion tables (GEN 2.6). It includes key abbreviations, the status of chart symbols, and essential conversion factors for aviation.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "AIP",
+        "Hong Kong",
+        "abbreviations",
+        "chart symbols",
+        "conversion tables",
+        "GEN 2"
+      ],
+      "wiki_links": [
+        "AIP Hong Kong Location Indicators",
+        "raw/sources/AIP_17july2026",
+        "AIP Hong Kong Radio Navigation Aids"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/aip-hong-kong-gen-2--abbreviations--chart-symbols--and-conversion-tables.md",
+      "backlinks": []
+    },
+    "concepts/aip-hong-kong-part-3---aerodromes--ad--table-of-contents.md": {
+      "title": "AIP Hong Kong Part 3 - Aerodromes (AD) Table of Contents",
+      "type": "concept",
+      "summary": "This note outlines the structure and contents of Part 3 (AD) of the AIP Hong Kong, covering aerodromes and heliports, including detailed sections for Hong Kong International Airport (VHHH), Macau (VMMC), and Sky Shuttle Heliport (VHSS).",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "AIP Hong Kong",
+        "aerodromes",
+        "heliports",
+        "table of contents",
+        "VHHH"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/aip-hong-kong-part-3---aerodromes--ad--table-of-contents.md",
+      "backlinks": []
+    },
+    "concepts/air-traffic-flow-management--atfm--overview.md": {
+      "title": "Air Traffic Flow Management (ATFM) Overview",
+      "type": "concept",
+      "summary": "ATFM ensures optimal flow of air traffic to/from Hong Kong International Airport, Macao International Airport, and overflying traffic in Hong Kong FIR, balancing demand with capacity.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "ATFM",
+        "Hong Kong FIR",
+        "capacity",
+        "demand",
+        "ATC"
+      ],
+      "wiki_links": [
+        "ATFM Measures",
+        "raw/sources/AIP_17july2026",
+        "Hong Kong ATFMU"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/air-traffic-flow-management--atfm--overview.md",
+      "backlinks": []
+    },
+    "concepts/aircraft-radio-and-navigation-equipment-requirements-in-hong-kong-fir.md": {
+      "title": "Aircraft Radio and Navigation Equipment Requirements in Hong Kong FIR",
+      "type": "concept",
+      "summary": "Mandatory radio and navigation equipment for aircraft operating in the Hong Kong FIR, including exemptions and specific requirements for transponders, ACAS, and RNAV.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "Hong Kong FIR",
+        "radio equipment",
+        "transponder",
+        "ACAS",
+        "RNAV"
+      ],
+      "wiki_links": [
+        "GEN 1.5 Notification Requirements",
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/aircraft-radio-and-navigation-equipment-requirements-in-hong-kong-fir.md",
+      "backlinks": [
+        "concepts/gen-1-5-notification-requirements.md",
+        "concepts/hong-kong-fir--ads-b--flight-plans--and-ats-pbn-routes.md",
+        "procedures/flight-documents-and-pilot-licensing-in-hong-kong.md",
+        "synthesis/hong-kong-civil-aviation-legislation-and-international-conventions.md"
+      ]
+    },
+    "concepts/application-of-ifr-and-flight-plan-submission-in-hong-kong-fir.md": {
+      "title": "Application of IFR and Flight Plan Submission in Hong Kong FIR",
+      "type": "concept",
+      "summary": "All flights in controlled airspace in Hong Kong FIR must follow IFR except local flights, and flight plans are required for every IFR flight unless otherwise notified.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "IFR",
+        "flight plan",
+        "Hong Kong FIR",
+        "controlled airspace"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/application-of-ifr-and-flight-plan-submission-in-hong-kong-fir.md",
+      "backlinks": []
+    },
+    "concepts/approach-and-runway-lighting-systems-at-vhhh.md": {
+      "title": "Approach and Runway Lighting Systems at VHHH",
+      "type": "concept",
+      "summary": "Detailed specifications of approach lighting, runway lighting, and visual aids for each runway at Hong Kong International Airport.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "approach lighting",
+        "runway lighting",
+        "PAPI",
+        "VASIS",
+        "TDZ",
+        "VHHH"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/approach-and-runway-lighting-systems-at-vhhh.md",
+      "backlinks": []
+    },
+    "concepts/asia-pacific-cross-border-multi-nodal-atfm-collaboration--amnac.md": {
+      "title": "Asia/Pacific Cross Border Multi-Nodal ATFM Collaboration (AMNAC)",
+      "type": "concept",
+      "summary": "Hong Kong ATFMU is a Level 3 ATFM Node in AMNAC, capable of generating, delivering, and receiving CTOTs, and obligated to comply with CTOTs from other Level 3 nodes.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "AMNAC",
+        "ATFM Node",
+        "CTOT",
+        "cross-border",
+        "APAC"
+      ],
+      "wiki_links": [
+        "Hong Kong ATFMU",
+        "raw/sources/AIP_17july2026",
+        "ATFM Overview"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/asia-pacific-cross-border-multi-nodal-atfm-collaboration--amnac.md",
+      "backlinks": []
+    },
+    "concepts/atfm-measures.md": {
+      "title": "ATFM Measures",
+      "type": "concept",
+      "summary": "Various tactical and strategic measures used to balance air traffic demand with capacity, including holding, spacing, rerouting, and ground delays.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "ATFM measures",
+        "GDP",
+        "CTOT",
+        "MINIT",
+        "MIT"
+      ],
+      "wiki_links": [
+        "GDP CTOT Compliance Window",
+        "raw/sources/AIP_17july2026",
+        "ATFM Overview"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/atfm-measures.md",
+      "backlinks": [
+        "concepts/air-traffic-flow-management--atfm--overview.md",
+        "concepts/bobcat-atfm-for-kabul-fir.md",
+        "concepts/gdp-ctot-compliance-window.md",
+        "procedures/requests-for-exemption-from-atfm-measures.md"
+      ]
+    },
+    "concepts/ats-airspace-and-communication-facilities-at-vhhh.md": {
+      "title": "ATS Airspace and Communication Facilities at VHHH",
+      "type": "concept",
+      "summary": "Description of the Hong Kong ATZ, CTR, and ATS communication frequencies and services.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "ATZ",
+        "CTR",
+        "ATS",
+        "frequencies",
+        "airspace",
+        "VHHH"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/ats-airspace-and-communication-facilities-at-vhhh.md",
+      "backlinks": []
+    },
+    "concepts/ats-airspace-classification-in-hong-kong-fir.md": {
+      "title": "ATS Airspace Classification in Hong Kong FIR",
+      "type": "concept",
+      "summary": "Classification of airspace within Hong Kong FIR into Classes A, C, and G, with details on services, separation, speed limits, and communication requirements.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "airspace classification",
+        "Hong Kong FIR",
+        "Class A",
+        "Class C",
+        "Class G"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/ats-airspace-classification-in-hong-kong-fir.md",
+      "backlinks": []
+    },
+    "concepts/bobcat-atfm-for-kabul-fir.md": {
+      "title": "BOBCAT ATFM for Kabul FIR",
+      "type": "concept",
+      "summary": "Bangkok ATFMU provides mandatory CTOT and CTO for westbound flights transiting Kabul FIR between 2000-2359 UTC daily, with exemptions and procedures.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "BOBCAT",
+        "Kabul FIR",
+        "CTOT",
+        "Bangkok ATFMU",
+        "ATFM"
+      ],
+      "wiki_links": [
+        "BOBCAT Operating Procedures",
+        "ATFM Measures",
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/bobcat-atfm-for-kabul-fir.md",
+      "backlinks": [
+        "entities/bobcat-atfm-users-handbook.md",
+        "procedures/bobcat-atfm-operating-procedures.md",
+        "procedures/bobcat-atfm-operations-for-departing-aircraft-from-hkia.md",
+        "procedures/coordination-procedure-for-bobcat.md"
+      ]
+    },
+    "concepts/deviation-from-flight-plans-and-atc-clearances.md": {
+      "title": "Deviation from Flight Plans and ATC Clearances",
+      "type": "concept",
+      "summary": "Rules regarding deviations from flight plans, ATC clearances, and instrument procedures in Hong Kong.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "deviation",
+        "flight plan",
+        "ATC clearance",
+        "instrument approach",
+        "emergency"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/deviation-from-flight-plans-and-atc-clearances.md",
+      "backlinks": []
+    },
+    "concepts/entry--transit-and-departure-of-aircraft--passengers--crew-and-cargo-in-hong-kong.md": {
+      "title": "Entry, Transit and Departure of Aircraft, Passengers, Crew and Cargo in Hong Kong",
+      "type": "concept",
+      "summary": "This note consolidates Hong Kong's regulations for aircraft entry, transit, and departure, including aircraft requirements (noise certificates, insurance, permits), passenger and crew immigration and customs rules, and cargo import restrictions and quarantine procedures.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "Hong Kong",
+        "aircraft entry",
+        "noise certificate",
+        "insurance",
+        "immigration",
+        "customs"
+      ],
+      "wiki_links": [
+        "GEN 1.3 Entry, Transit and Departure of Passengers and Crew",
+        "GEN 1.4 Entry, Transit and Departure of Cargo",
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/entry--transit-and-departure-of-aircraft--passengers--crew-and-cargo-in-hong-kong.md",
+      "backlinks": []
+    },
+    "concepts/flight-plan-addressing-for-hong-kong-fir.md": {
+      "title": "Flight Plan Addressing for Hong Kong FIR",
+      "type": "concept",
+      "summary": "Flight movement messages must be addressed to specific AFTN addresses depending on flight direction.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "addressing",
+        "AFTN",
+        "VHHKZQZX",
+        "VHHHZPZA",
+        "flight plan messages"
+      ],
+      "wiki_links": [
+        "Flight Plan Submission Requirements",
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/flight-plan-addressing-for-hong-kong-fir.md",
+      "backlinks": []
+    },
+    "concepts/flight-plan-equipment-and-performance-based-navigation--pbn--requirements.md": {
+      "title": "Flight Plan Equipment and Performance-Based Navigation (PBN) Requirements",
+      "type": "concept",
+      "summary": "Specific flight plan fields for RNAV/RNP approvals, RVSM, ADS-B, and cargo/general aviation identification.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "PBN",
+        "RNAV",
+        "RNP",
+        "RVSM",
+        "ADS-B",
+        "flight plan"
+      ],
+      "wiki_links": [
+        "Flight Plan Submission Requirements",
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/flight-plan-equipment-and-performance-based-navigation--pbn--requirements.md",
+      "backlinks": [
+        "concepts/repetitive-flight-plan-system.md"
+      ]
+    },
+    "concepts/gdp-ctot-compliance-window.md": {
+      "title": "GDP CTOT Compliance Window",
+      "type": "concept",
+      "summary": "CTOT compliance windows for GDPs: -5/+10 minutes for airport constraints, -5/+5 minutes for waypoint/airspace constraints, with CTOTs distributed at least 90 minutes before EOBT.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "CTOT",
+        "GDP",
+        "compliance window",
+        "EOBT",
+        "ATFM"
+      ],
+      "wiki_links": [
+        "Coordination during GDP",
+        "ATFM Measures",
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/gdp-ctot-compliance-window.md",
+      "backlinks": [
+        "concepts/atfm-measures.md",
+        "concepts/integration-of-atfm-and-a-cdm.md",
+        "procedures/coordination-during-gdp.md"
+      ]
+    },
+    "concepts/gen-1-5-notification-requirements.md": {
+      "title": "GEN 1.5 Notification Requirements",
+      "type": "concept",
+      "summary": "Specific notifications under the Air Navigation (Hong Kong) Order 1995 regarding radio equipment, airspace, and procedures.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "notification",
+        "ILS",
+        "SSR transponder",
+        "airspace",
+        "Hong Kong"
+      ],
+      "wiki_links": [
+        "Aircraft Radio and Navigation Equipment Requirements in Hong Kong FIR",
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/gen-1-5-notification-requirements.md",
+      "backlinks": [
+        "concepts/aircraft-radio-and-navigation-equipment-requirements-in-hong-kong-fir.md"
+      ]
+    },
+    "concepts/geodetic-and-vertical-reference-systems-in-hong-kong.md": {
+      "title": "Geodetic and Vertical Reference Systems in Hong Kong",
+      "type": "concept",
+      "summary": "This note explains the geodetic datum and vertical reference system used in Hong Kong aviation, including WGS-84 and HKPD.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "WGS-84",
+        "HKPD",
+        "geoid",
+        "vertical reference",
+        "Hong Kong"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/geodetic-and-vertical-reference-systems-in-hong-kong.md",
+      "backlinks": []
+    },
+    "concepts/holding--approach--departure--and-rvsm-procedures-in-hong-kong-fir.md": {
+      "title": "Holding, Approach, Departure, and RVSM Procedures in Hong Kong FIR",
+      "type": "concept",
+      "summary": "This note consolidates procedures for holding, approach, departure, and RVSM operations within the Hong Kong FIR, including speed restrictions, equipment requirements, and turbulence handling.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "holding",
+        "RVSM",
+        "Hong Kong FIR",
+        "speed control",
+        "EAT",
+        "SID/STAR"
+      ],
+      "wiki_links": [
+        "Radio Communication Failure Procedures",
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/holding--approach--departure--and-rvsm-procedures-in-hong-kong-fir.md",
+      "backlinks": []
+    },
+    "concepts/hong-kong-control-zone--ctr--and-other-airspace.md": {
+      "title": "Hong Kong Control Zone (CTR) and Other Airspace",
+      "type": "concept",
+      "summary": "Details of the Hong Kong Control Zone (CTR), airspace south of TMA, airspace beneath TMA, and Uncontrolled Airspace Reporting Areas (UCARAs).",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "CTR",
+        "UCARA",
+        "Class C",
+        "Class G",
+        "Hong Kong"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/hong-kong-control-zone--ctr--and-other-airspace.md",
+      "backlinks": []
+    },
+    "concepts/hong-kong-fir--ads-b--flight-plans--and-ats-pbn-routes.md": {
+      "title": "Hong Kong FIR: ADS-B, Flight Plans, and ATS/PBN Routes",
+      "type": "concept",
+      "summary": "This note consolidates requirements for ADS-B Out equipment, flight plan submission, and ATS/PBN route structure within the Hong Kong FIR, including compliance standards, filing procedures, and route specifications.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "ADS-B",
+        "Hong Kong FIR",
+        "flight plan",
+        "ATS routes",
+        "PBN routes"
+      ],
+      "wiki_links": [
+        "Flight Plan Route Requirements",
+        "Aircraft Radio and Navigation Equipment Requirements in Hong Kong FIR",
+        "raw/sources/AIP_17july2026",
+        "Flight Plan Addressing"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/hong-kong-fir--ads-b--flight-plans--and-ats-pbn-routes.md",
+      "backlinks": []
+    },
+    "concepts/hong-kong-fir-and-tma-airspace-structure.md": {
+      "title": "Hong Kong FIR and TMA Airspace Structure",
+      "type": "concept",
+      "summary": "Details of the Hong Kong Flight Information Region (FIR) and Terminal Control Area (TMA), including lateral limits, vertical limits, airspace classes, and service units.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "Hong Kong FIR",
+        "TMA",
+        "airspace",
+        "ATC",
+        "classes"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/hong-kong-fir-and-tma-airspace-structure.md",
+      "backlinks": []
+    },
+    "concepts/insurance-requirements-for-civil-aircraft-in-hong-kong.md": {
+      "title": "Insurance Requirements for Civil Aircraft in Hong Kong",
+      "type": "concept",
+      "summary": "Details the mandatory insurance (CSL) requirements for civil aircraft operating in Hong Kong, including minimum coverage amounts and conditions.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "insurance",
+        "CSL",
+        "Hong Kong",
+        "civil aviation",
+        "minimum coverage"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/insurance-requirements-for-civil-aircraft-in-hong-kong.md",
+      "backlinks": []
+    },
+    "concepts/integration-of-atfm-and-a-cdm.md": {
+      "title": "Integration of ATFM and A-CDM",
+      "type": "concept",
+      "summary": "A-CDM at HKIA (since 1 Nov 2018) integrates with ATFM to improve efficiency, using milestones like TOBT and TSAT to enhance situational awareness and CTOT accuracy.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "A-CDM",
+        "ATFM",
+        "HKIA",
+        "TOBT",
+        "TSAT"
+      ],
+      "wiki_links": [
+        "GDP CTOT Compliance Window",
+        "raw/sources/AIP_17july2026",
+        "ATFM Overview"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/integration-of-atfm-and-a-cdm.md",
+      "backlinks": []
+    },
+    "concepts/local-wind-effects-on-approach-and-departure-at-hkia.md": {
+      "title": "Local Wind Effects on Approach and Departure at HKIA",
+      "type": "concept",
+      "summary": "Description of terrain-induced wind shear and turbulence risks for aircraft operations at Hong Kong International Airport, including specific runway effects.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "wind shear",
+        "turbulence",
+        "terrain",
+        "Lantau",
+        "runway"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/local-wind-effects-on-approach-and-departure-at-hkia.md",
+      "backlinks": []
+    },
+    "concepts/macao-international-airport--vmmc--in-aip-hong-kong.md": {
+      "title": "Macao International Airport (VMMC) in AIP Hong Kong",
+      "type": "concept",
+      "summary": "Overview of Macao International Airport's inclusion in AIP Hong Kong, including its purpose and the role of Hong Kong ATC.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "VMMC",
+        "Macao",
+        "AIP Hong Kong",
+        "ICAO",
+        "ATC"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/macao-international-airport--vmmc--in-aip-hong-kong.md",
+      "backlinks": []
+    },
+    "concepts/mach-number-technique-for-longitudinal-separation.md": {
+      "title": "Mach Number Technique for Longitudinal Separation",
+      "type": "concept",
+      "summary": "Mach Number Technique is used between turbo-jet aircraft to establish longitudinal separation minima on specific routes in Hong Kong FIR.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "Mach Number Technique",
+        "longitudinal separation",
+        "turbo-jet",
+        "Hong Kong FIR",
+        "routes"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/mach-number-technique-for-longitudinal-separation.md",
+      "backlinks": []
+    },
+    "concepts/meteorological-service-provision-in-hong-kong.md": {
+      "title": "Meteorological Service Provision in Hong Kong",
+      "type": "concept",
+      "summary": "Overview of the meteorological service structure for Hong Kong, including responsible offices, areas of responsibility, and service standards.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "Hong Kong Observatory",
+        "Airport Meteorological Office",
+        "ICAO Annex 3",
+        "Hong Kong FIR",
+        "meteorological watch"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/meteorological-service-provision-in-hong-kong.md",
+      "backlinks": []
+    },
+    "concepts/pbn-navigation-requirements--rnp-10-and-rnp-4.md": {
+      "title": "PBN Navigation Requirements (RNP 10 and RNP 4)",
+      "type": "concept",
+      "summary": "RNP 10 and RNP 4 navigation requirements specify lateral separation minima on certain routes in Hong Kong FIR, with specific flight plan indicators and procedures for non-compliant aircraft.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "PBN",
+        "RNP 10",
+        "RNP 4",
+        "lateral separation",
+        "Hong Kong FIR"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/pbn-navigation-requirements--rnp-10-and-rnp-4.md",
+      "backlinks": []
+    },
+    "concepts/radio-navigation-and-landing-aids-at-vhhh.md": {
+      "title": "Radio Navigation and Landing Aids at VHHH",
+      "type": "concept",
+      "summary": "List of ILS, DME, and DVOR facilities for each runway at Hong Kong International Airport, including frequencies and operational restrictions.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "ILS",
+        "DME",
+        "DVOR",
+        "navigation aids",
+        "VHHH"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/radio-navigation-and-landing-aids-at-vhhh.md",
+      "backlinks": []
+    },
+    "concepts/repetitive-flight-plan-system.md": {
+      "title": "Repetitive Flight Plan System",
+      "type": "concept",
+      "summary": "Repetitive flight plans are available for specific routes, with RVSM status requirements.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "repetitive flight plan",
+        "RVSM",
+        "Taibei",
+        "Jakarta",
+        "Kuala Lumpur"
+      ],
+      "wiki_links": [
+        "Flight Plan Equipment and Performance-Based Navigation (PBN) Requirements",
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/repetitive-flight-plan-system.md",
+      "backlinks": []
+    },
+    "concepts/rescue-and-fire-fighting-services-and-runway-surface-condition-reporting-at-hong-kong-international-airport.md": {
+      "title": "Rescue and Fire Fighting Services and Runway Surface Condition Reporting at Hong Kong International Airport",
+      "type": "concept",
+      "summary": "This note describes the rescue and fire fighting services at Hong Kong International Airport and the runway surface condition assessment and reporting using the ICAO Global Reporting Format (GRF).",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "rescue and fire fighting",
+        "runway surface condition",
+        "GRF",
+        "RWYCC",
+        "Hong Kong International Airport"
+      ],
+      "wiki_links": [
+        "Aerodrome Availability and Operating Minima at Hong Kong International Airport",
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/rescue-and-fire-fighting-services-and-runway-surface-condition-reporting-at-hong-kong-international-airport.md",
+      "backlinks": []
+    },
+    "concepts/runway-physical-characteristics-and-declared-distances-at-vhhh.md": {
+      "title": "Runway Physical Characteristics and Declared Distances at VHHH",
+      "type": "concept",
+      "summary": "Details of the three parallel runways at Hong Kong International Airport, including dimensions, strengths, and declared distances with specific notes on displaced thresholds and intersection take-offs.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "runway",
+        "declared distances",
+        "TORA",
+        "TODA",
+        "ASDA",
+        "LDA",
+        "VHHH"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/runway-physical-characteristics-and-declared-distances-at-vhhh.md",
+      "backlinks": []
+    },
+    "concepts/safety-assessment-and-monitoring-of-navigation-performance.md": {
+      "title": "Safety Assessment and Monitoring of Navigation Performance",
+      "type": "concept",
+      "summary": "Safety criteria for reduced lateral separation minima and monitoring of aircraft navigation performance rely on radar and specific deviation thresholds.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "safety assessment",
+        "navigation performance",
+        "lateral deviation",
+        "longitudinal deviation",
+        "monitoring"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/safety-assessment-and-monitoring-of-navigation-performance.md",
+      "backlinks": []
+    },
+    "concepts/search-and-rescue--sar--service-in-hong-kong.md": {
+      "title": "Search and Rescue (SAR) Service in Hong Kong",
+      "type": "concept",
+      "summary": "Overview of the search and rescue service provided by the Civil Aviation Department in Hong Kong, including responsible service, area of responsibility, types of service, SAR facilities, agreements, conditions of availability, and procedures.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "SAR",
+        "Hong Kong",
+        "RCC",
+        "ICAO",
+        "rescue"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/search-and-rescue--sar--service-in-hong-kong.md",
+      "backlinks": []
+    },
+    "concepts/table-of-contents-to-part-1--gen.md": {
+      "title": "Table of Contents to Part 1 (GEN)",
+      "type": "concept",
+      "summary": "Detailed table of contents for the General (GEN) part of the AIP Hong Kong.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "AIP",
+        "GEN",
+        "table of contents",
+        "sections"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/table-of-contents-to-part-1--gen.md",
+      "backlinks": []
+    },
+    "concepts/units-of-measurement-and-time-system-in-hong-kong-aip.md": {
+      "title": "Units of Measurement and Time System in Hong Kong AIP",
+      "type": "concept",
+      "summary": "This note covers the units of measurement and time system used in Hong Kong aviation, as per AIP GEN 2.1.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "units",
+        "measurement",
+        "time",
+        "UTC",
+        "Hong Kong"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/units-of-measurement-and-time-system-in-hong-kong-aip.md",
+      "backlinks": []
+    },
+    "concepts/unlawful-interference--enr-1-13.md": {
+      "title": "Unlawful Interference (ENR 1.13)",
+      "type": "concept",
+      "summary": "Section ENR 1.13 on unlawful interference is currently nil in the Hong Kong AIP.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "unlawful interference",
+        "Hong Kong",
+        "AIP"
+      ],
+      "wiki_links": [
+        "Interception of Civil Aircraft Procedures",
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/unlawful-interference--enr-1-13.md",
+      "backlinks": []
+    },
+    "concepts/visual-and-instrument-flight-rules--vfr-ifr--in-hong-kong.md": {
+      "title": "Visual and Instrument Flight Rules (VFR/IFR) in Hong Kong",
+      "type": "concept",
+      "summary": "This note summarizes the regulatory framework for Visual Flight Rules (VFR) and Instrument Flight Rules (IFR) in Hong Kong, including airspace classifications, visibility and cloud clearance requirements, special VFR provisions, and applicable rules from the Air Navigation (Hong Kong) Order 1995.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "VFR",
+        "IFR",
+        "Hong Kong",
+        "visibility",
+        "cloud clearance",
+        "special VFR"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/visual-and-instrument-flight-rules--vfr-ifr--in-hong-kong.md",
+      "backlinks": []
+    },
+    "concepts/wind-shear-and-turbulence-alerting-services-at-hkia.md": {
+      "title": "Wind Shear and Turbulence Alerting Services at HKIA",
+      "type": "concept",
+      "summary": "Description of the Wind Shear and Turbulence Warning System (WTWS), alert types, thresholds, and phraseology used at Hong Kong International Airport.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "wind shear",
+        "turbulence",
+        "microburst",
+        "WTWS",
+        "alert"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "concepts/wind-shear-and-turbulence-alerting-services-at-hkia.md",
+      "backlinks": []
+    },
+    "entities/aerodrome-certification-status-in-hong-kong.md": {
+      "title": "Aerodrome Certification Status in Hong Kong",
+      "type": "entity",
+      "summary": "This note provides the certification status of Hong Kong International Airport, including the date and validity of certification.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "aerodrome certification",
+        "VHHH",
+        "Hong Kong International Airport",
+        "certification status"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026",
+        "Index and Grouping of Aerodromes and Heliports in Hong Kong"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "entities/aerodrome-certification-status-in-hong-kong.md",
+      "backlinks": [
+        "entities/index-and-grouping-of-aerodromes-and-heliports-in-hong-kong.md"
+      ]
+    },
+    "entities/aeronautical-fixed-service-circuits-in-hong-kong.md": {
+      "title": "Aeronautical Fixed Service Circuits in Hong Kong",
+      "type": "entity",
+      "summary": "Lists the AFTN circuits and direct speech circuits for the Hong Kong aeronautical fixed service, including correspondents and types of traffic.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "AFTN",
+        "circuits",
+        "Hong Kong",
+        "ATS",
+        "communication"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "entities/aeronautical-fixed-service-circuits-in-hong-kong.md",
+      "backlinks": []
+    },
+    "entities/aip-hong-kong-location-indicators-and-radio-navigation-aids--gen-2-4---2-5.md": {
+      "title": "AIP Hong Kong Location Indicators and Radio Navigation Aids (GEN 2.4 & 2.5)",
+      "type": "entity",
+      "summary": "This note consolidates information from AIP Hong Kong GEN 2.4 (location indicators) and GEN 2.5 (radio navigation aids). It lists the ICAO location indicators for the Hong Kong FIR and associated aerodromes, including usage restrictions, and details the radio navigation aids (ILS, DME, DVOR) at Hong Kong International Airport and other sites, with their purposes.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "location indicators",
+        "radio navigation aids",
+        "ILS",
+        "DME",
+        "DVOR",
+        "Hong Kong"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "entities/aip-hong-kong-location-indicators-and-radio-navigation-aids--gen-2-4---2-5.md",
+      "backlinks": []
+    },
+    "entities/aip-hong-kong-sunrise-sunset-tables--gen-2-7.md": {
+      "title": "AIP Hong Kong Sunrise/Sunset Tables (GEN 2.7)",
+      "type": "entity",
+      "summary": "Sunrise, sunset, and twilight times for Hong Kong International Airport for the years 2024-2026, based on an average year 2025.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "sunrise",
+        "sunset",
+        "twilight",
+        "Hong Kong",
+        "VHHH"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "entities/aip-hong-kong-sunrise-sunset-tables--gen-2-7.md",
+      "backlinks": []
+    },
+    "entities/aircraft-markings-and-public-holidays-in-hong-kong.md": {
+      "title": "Aircraft Markings and Public Holidays in Hong Kong",
+      "type": "entity",
+      "summary": "This note describes the aircraft nationality and registration marks for Hong Kong, and how public holidays are notified.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "aircraft markings",
+        "registration",
+        "nationality mark",
+        "public holidays",
+        "Hong Kong"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "entities/aircraft-markings-and-public-holidays-in-hong-kong.md",
+      "backlinks": []
+    },
+    "entities/ats-communication-facilities-for-vmmc.md": {
+      "title": "ATS Communication Facilities for VMMC",
+      "type": "entity",
+      "summary": "Details of ATS communication frequencies provided by Hong Kong ATC for aircraft transiting Hong Kong airspace to/from Macao.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "VMMC",
+        "ATS",
+        "communication",
+        "Hong Kong Radar",
+        "frequency"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "entities/ats-communication-facilities-for-vmmc.md",
+      "backlinks": []
+    },
+    "entities/ats-surveillance-services-and-radar-equipment-in-hong-kong.md": {
+      "title": "ATS Surveillance Services and Radar Equipment in Hong Kong",
+      "type": "entity",
+      "summary": "Overview of primary and secondary radar equipment, radar services, and separation minima in Hong Kong.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "radar",
+        "SSR",
+        "primary radar",
+        "surveillance service",
+        "separation minima"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "entities/ats-surveillance-services-and-radar-equipment-in-hong-kong.md",
+      "backlinks": []
+    },
+    "entities/bobcat-atfm-users-handbook.md": {
+      "title": "BOBCAT ATFM Users Handbook",
+      "type": "entity",
+      "summary": "Supporting documentation for BOBCAT ATFM operations, available at bobcat.aero, with contact info for Bangkok ATFMU.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "BOBCAT",
+        "Users Handbook",
+        "Bangkok ATFMU",
+        "contact"
+      ],
+      "wiki_links": [
+        "BOBCAT ATFM Operating Procedures",
+        "raw/sources/AIP_17july2026",
+        "BOBCAT ATFM for Kabul FIR"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "entities/bobcat-atfm-users-handbook.md",
+      "backlinks": []
+    },
+    "entities/charts-and-documents-for-vhhh.md": {
+      "title": "Charts and Documents for VHHH",
+      "type": "entity",
+      "summary": "List of aerodrome charts and documents available for Hong Kong International Airport, including SID, STAR, and approach charts.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "charts",
+        "SID",
+        "STAR",
+        "approach charts",
+        "VHHH"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "entities/charts-and-documents-for-vhhh.md",
+      "backlinks": []
+    },
+    "entities/charts-for-macao-international-airport--vmmc.md": {
+      "title": "Charts for Macao International Airport (VMMC)",
+      "type": "entity",
+      "summary": "List of SID and STAR charts published in AIP Hong Kong for VMMC.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "VMMC",
+        "charts",
+        "SID",
+        "STAR",
+        "RNAV"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "entities/charts-for-macao-international-airport--vmmc.md",
+      "backlinks": []
+    },
+    "entities/controlling-units-and-frequencies-for-hong-kong-ats-routes.md": {
+      "title": "Controlling Units and Frequencies for Hong Kong ATS Routes",
+      "type": "entity",
+      "summary": "This note lists the controlling units and their primary and secondary frequencies used for ATS and PBN routes in Hong Kong, as well as special frequency assignments.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "controlling units",
+        "frequencies",
+        "Hong Kong Radar",
+        "PRI",
+        "SRY"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "entities/controlling-units-and-frequencies-for-hong-kong-ats-routes.md",
+      "backlinks": []
+    },
+    "entities/designated-authorities-in-hong-kong.md": {
+      "title": "Designated Authorities in Hong Kong",
+      "type": "entity",
+      "summary": "Contact information for key aviation-related authorities in Hong Kong.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "Hong Kong",
+        "authorities",
+        "Civil Aviation",
+        "Meteorology",
+        "Customs",
+        "Immigration",
+        "Health"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "entities/designated-authorities-in-hong-kong.md",
+      "backlinks": []
+    },
+    "entities/hong-kong-atfm-website.md": {
+      "title": "Hong Kong ATFM Website",
+      "type": "entity",
+      "summary": "The Hong Kong ATFM Website (atfmc.gov.hk) provides updated ATFM information, CTOTs, and ADPs, with account access for AUs.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "ATFM website",
+        "Hong Kong ATFMU",
+        "CTOT",
+        "ADP",
+        "stakeholders"
+      ],
+      "wiki_links": [
+        "ATFM Overview",
+        "raw/sources/AIP_17july2026",
+        "Hong Kong ATFMU"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "entities/hong-kong-atfm-website.md",
+      "backlinks": [
+        "entities/hong-kong-atfmu-contact-information.md"
+      ]
+    },
+    "entities/hong-kong-atfmu-contact-information.md": {
+      "title": "Hong Kong ATFMU Contact Information",
+      "type": "entity",
+      "summary": "Contact details for Hong Kong ATFMU, providing H24 ATFM service for Hong Kong FIR.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "Hong Kong ATFMU",
+        "contact",
+        "ATFM",
+        "H24"
+      ],
+      "wiki_links": [
+        "Hong Kong ATFM Website",
+        "raw/sources/AIP_17july2026",
+        "ATFM Overview"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "entities/hong-kong-atfmu-contact-information.md",
+      "backlinks": []
+    },
+    "entities/hong-kong-international-airport--vhhh--general-information.md": {
+      "title": "Hong Kong International Airport (VHHH) General Information",
+      "type": "entity",
+      "summary": "Key administrative, operational, and physical data for Hong Kong International Airport (VHHH), including location, hours, and services.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "VHHH",
+        "Hong Kong International Airport",
+        "ARP",
+        "operational hours",
+        "services"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "entities/hong-kong-international-airport--vhhh--general-information.md",
+      "backlinks": []
+    },
+    "entities/index-and-grouping-of-aerodromes-and-heliports-in-hong-kong.md": {
+      "title": "Index and Grouping of Aerodromes and Heliports in Hong Kong",
+      "type": "entity",
+      "summary": "This note lists the aerodromes and heliports in Hong Kong, their location indicators, traffic types, and the criteria for grouping them in the AIP.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "aerodrome index",
+        "heliports",
+        "Hong Kong",
+        "VHHH",
+        "VHSS"
+      ],
+      "wiki_links": [
+        "Aerodrome Certification Status in Hong Kong",
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "entities/index-and-grouping-of-aerodromes-and-heliports-in-hong-kong.md",
+      "backlinks": [
+        "entities/aerodrome-certification-status-in-hong-kong.md"
+      ]
+    },
+    "entities/meteorological-equipment-locations-at-hkia.md": {
+      "title": "Meteorological Equipment Locations at HKIA",
+      "type": "entity",
+      "summary": "List of meteorological equipment and their locations supporting aviation weather services at Hong Kong International Airport.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "equipment",
+        "anemometer",
+        "LIDAR",
+        "TDWR",
+        "ceilometer"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "entities/meteorological-equipment-locations-at-hkia.md",
+      "backlinks": []
+    },
+    "entities/sheung-wan---sky-shuttle-heliport--vhss--overview-and-charts.md": {
+      "title": "Sheung Wan / Sky Shuttle Heliport (VHSS) Overview and Charts",
+      "type": "entity",
+      "summary": "The Sheung Wan / Sky Shuttle Heliport (VHSS) is an unlicensed heliport in Hong Kong operated by Sky Shuttle Helicopters Ltd., with specific operational details and published instrument flight procedures.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "VHSS",
+        "heliport",
+        "Sky Shuttle",
+        "Hong Kong",
+        "operations",
+        "charts"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "entities/sheung-wan---sky-shuttle-heliport--vhss--overview-and-charts.md",
+      "backlinks": []
+    },
+    "entities/table-of-contents-for-enr-section--part-2--of-aip-hong-kong.md": {
+      "title": "Table of Contents for ENR Section (Part 2) of AIP Hong Kong",
+      "type": "entity",
+      "summary": "Listing of the structure and contents of the ENR (En-route) section of the AIP Hong Kong, including general rules, airspace, routes, navigation aids, and warnings.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "AIP",
+        "ENR",
+        "table of contents",
+        "Hong Kong",
+        "en-route"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "entities/table-of-contents-for-enr-section--part-2--of-aip-hong-kong.md",
+      "backlinks": []
+    },
+    "entities/vhss-heliport-data-and-markings.md": {
+      "title": "VHSS Heliport Data and Markings",
+      "type": "entity",
+      "summary": "Physical characteristics, markings, and lighting of the Sky Shuttle Heliport.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "VHSS",
+        "helipad",
+        "markings",
+        "lighting",
+        "data"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "entities/vhss-heliport-data-and-markings.md",
+      "backlinks": []
+    },
+    "entities/vhss-heliport-facilities-and-services.md": {
+      "title": "VHSS Heliport Facilities and Services",
+      "type": "entity",
+      "summary": "Details of passenger facilities, rescue and fire fighting, and meteorological services at VHSS.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "VHSS",
+        "facilities",
+        "rescue",
+        "fire fighting",
+        "meteorology"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "entities/vhss-heliport-facilities-and-services.md",
+      "backlinks": []
+    },
+    "entities/visa-requirements-for-hong-kong.md": {
+      "title": "Visa Requirements for Hong Kong",
+      "type": "entity",
+      "summary": "Detailed visa exemption and requirement lists for visitors to Hong Kong, including specific countries and conditions.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "visa",
+        "Hong Kong",
+        "exemption",
+        "requirements",
+        "immigration"
+      ],
+      "wiki_links": [
+        "Entry, Transit and Departure of Passengers and Crew in Hong Kong",
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "entities/visa-requirements-for-hong-kong.md",
+      "backlinks": []
+    },
+    "procedures/additional-meteorological-information-on-atis.md": {
+      "title": "Additional Meteorological Information on ATIS",
+      "type": "procedure",
+      "summary": "Details of supplementary weather information provided on ATIS broadcasts at Hong Kong International Airport, including hilltop winds, visibility, thunderstorms, and tailwinds.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "ATIS",
+        "hilltop winds",
+        "thunderstorm",
+        "tailwind",
+        "visibility"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "procedures/additional-meteorological-information-on-atis.md",
+      "backlinks": []
+    },
+    "procedures/aip-amendment-and-supplement-records.md": {
+      "title": "AIP Amendment and Supplement Records",
+      "type": "procedure",
+      "summary": "This note consolidates the records of AIP amendments, supplements, and hand amendments, detailing their publication and effective dates, temporary changes, and the current status of manual corrections.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "AIP",
+        "amendments",
+        "supplements",
+        "hand amendments",
+        "AIRAC",
+        "publication"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "procedures/aip-amendment-and-supplement-records.md",
+      "backlinks": []
+    },
+    "procedures/air-traffic-incident-reporting-in-hong-kong.md": {
+      "title": "Air Traffic Incident Reporting in Hong Kong",
+      "type": "procedure",
+      "summary": "Procedures for pilots to report air traffic incidents in Hong Kong, including forms, initial reporting, and investigation principles.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "air traffic incident",
+        "reporting",
+        "Hong Kong",
+        "CAD",
+        "DCA forms"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "procedures/air-traffic-incident-reporting-in-hong-kong.md",
+      "backlinks": []
+    },
+    "procedures/airport-qualifications-and-operational-procedures-at-hong-kong-international-airport.md": {
+      "title": "Airport Qualifications and Operational Procedures at Hong Kong International Airport",
+      "type": "procedure",
+      "summary": "This note consolidates requirements for pilot briefing and ground handling at Hong Kong International Airport, including Category B designation, briefing content, currency, ground handling agent, taxiing, towing, and engine ground run procedures.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "airport qualifications",
+        "pilot briefing",
+        "Category B",
+        "Hong Kong International Airport",
+        "ground handling",
+        "engine ground run"
+      ],
+      "wiki_links": [
+        "Aerodrome Availability and Operating Minima at Hong Kong International Airport",
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "procedures/airport-qualifications-and-operational-procedures-at-hong-kong-international-airport.md",
+      "backlinks": []
+    },
+    "procedures/arriving-and-departing-flights-to-from-macao.md": {
+      "title": "Arriving and Departing Flights to/from Macao",
+      "type": "procedure",
+      "summary": "Procedures for flights arriving at and departing from Macao while transiting Hong Kong airspace.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "Macao",
+        "speed restrictions",
+        "loss of communication",
+        "surveillance service"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "procedures/arriving-and-departing-flights-to-from-macao.md",
+      "backlinks": []
+    },
+    "procedures/arriving-flights-to-hong-kong--star--descent--and-speed-control.md": {
+      "title": "Arriving Flights to Hong Kong: STAR, Descent, and Speed Control",
+      "type": "procedure",
+      "summary": "Procedures for arriving flights to Hong Kong, including STAR usage, descent profile, speed control, and handling of equipment failures.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "STAR",
+        "descent profile",
+        "speed control",
+        "RNP",
+        "GNSS loss"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "procedures/arriving-flights-to-hong-kong--star--descent--and-speed-control.md",
+      "backlinks": []
+    },
+    "procedures/bobcat-atfm-operating-procedures.md": {
+      "title": "BOBCAT ATFM Operating Procedures",
+      "type": "procedure",
+      "summary": "Slot allocation process for BOBCAT, including submission, initial allocation, and distribution, with responsibilities for PICs and ANSPs.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "BOBCAT",
+        "slot allocation",
+        "CTOT",
+        "PIC",
+        "ANSP"
+      ],
+      "wiki_links": [
+        "Coordination Procedure for BOBCAT",
+        "raw/sources/AIP_17july2026",
+        "BOBCAT ATFM for Kabul FIR"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "procedures/bobcat-atfm-operating-procedures.md",
+      "backlinks": [
+        "entities/bobcat-atfm-users-handbook.md",
+        "procedures/coordination-procedure-for-bobcat.md"
+      ]
+    },
+    "procedures/bobcat-atfm-operations-for-departing-aircraft-from-hkia.md": {
+      "title": "BOBCAT ATFM Operations for Departing Aircraft from HKIA",
+      "type": "procedure",
+      "summary": "Specific procedures for BOBCAT flights departing HKIA, including readiness 25 minutes before CTOT and possible pushback delays.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "BOBCAT",
+        "HKIA",
+        "CTOT",
+        "departure",
+        "pushback"
+      ],
+      "wiki_links": [
+        "Coordination Procedure for BOBCAT",
+        "raw/sources/AIP_17july2026",
+        "BOBCAT ATFM for Kabul FIR"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "procedures/bobcat-atfm-operations-for-departing-aircraft-from-hkia.md",
+      "backlinks": []
+    },
+    "procedures/checklist-of-aip-pages.md": {
+      "title": "Checklist of AIP Pages",
+      "type": "procedure",
+      "summary": "Page checklist for the AIP Hong Kong, showing page numbers and dates.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "AIP",
+        "checklist",
+        "pages",
+        "GEN",
+        "ENR",
+        "AD"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "procedures/checklist-of-aip-pages.md",
+      "backlinks": []
+    },
+    "procedures/clearances-for-maintaining-own-separation-in-vmc.md": {
+      "title": "Clearances for Maintaining Own Separation in VMC",
+      "type": "procedure",
+      "summary": "ATC may grant IFR flights clearance to maintain own separation and remain in VMC only when requested by the pilot, for climb, descent, or approach by day, and at or below FL150 in Hong Kong.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "VMC",
+        "separation",
+        "ATC clearance",
+        "IFR",
+        "Hong Kong"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "procedures/clearances-for-maintaining-own-separation-in-vmc.md",
+      "backlinks": []
+    },
+    "procedures/contingency-actions-for-aircraft-system-malfunction-or-turbulence.md": {
+      "title": "Contingency Actions for Aircraft System Malfunction or Turbulence",
+      "type": "procedure",
+      "summary": "Detailed scenarios and actions for pilots and controllers in RVSM airspace during equipment failures or turbulence, ensuring safety and separation.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "contingency",
+        "RVSM",
+        "equipment failure",
+        "turbulence",
+        "pilots actions"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "procedures/contingency-actions-for-aircraft-system-malfunction-or-turbulence.md",
+      "backlinks": []
+    },
+    "procedures/coordination-during-gdp.md": {
+      "title": "Coordination during GDP",
+      "type": "procedure",
+      "summary": "Procedures for coordinating revised CTOTs during a GDP, including rules for before and after cabin door closure, and restrictions on earlier CTOT requests.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "GDP",
+        "CTOT",
+        "coordination",
+        "ATFMU",
+        "revised CTOT"
+      ],
+      "wiki_links": [
+        "Hong Kong ATFMU",
+        "raw/sources/AIP_17july2026",
+        "GDP CTOT Compliance Window"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "procedures/coordination-during-gdp.md",
+      "backlinks": [
+        "concepts/gdp-ctot-compliance-window.md"
+      ]
+    },
+    "procedures/coordination-procedure-for-bobcat.md": {
+      "title": "Coordination Procedure for BOBCAT",
+      "type": "procedure",
+      "summary": "Coordination between aircraft operators, PICs, ANSPs, and Bangkok ATFMU for BOBCAT, including AFTN addressees and revised slot requests.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "BOBCAT",
+        "coordination",
+        "Bangkok ATFMU",
+        "CTOT",
+        "ATC"
+      ],
+      "wiki_links": [
+        "BOBCAT ATFM Operating Procedures",
+        "raw/sources/AIP_17july2026",
+        "BOBCAT ATFM for Kabul FIR"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "procedures/coordination-procedure-for-bobcat.md",
+      "backlinks": [
+        "procedures/bobcat-atfm-operating-procedures.md",
+        "procedures/bobcat-atfm-operations-for-departing-aircraft-from-hkia.md"
+      ]
+    },
+    "procedures/departing-flights-from-hong-kong--sid--speed-control--and-cruising-level-allocation.md": {
+      "title": "Departing Flights from Hong Kong: SID, Speed Control, and Cruising Level Allocation",
+      "type": "procedure",
+      "summary": "Procedures for departing flights from Hong Kong, including SID usage, departure report, speed control, and cruising level allocation.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "SID",
+        "departure report",
+        "speed control",
+        "cruising level",
+        "BEKOL"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "procedures/departing-flights-from-hong-kong--sid--speed-control--and-cruising-level-allocation.md",
+      "backlinks": []
+    },
+    "procedures/documentary-requirements-for-aircraft-clearance-in-hong-kong.md": {
+      "title": "Documentary Requirements for Aircraft Clearance in Hong Kong",
+      "type": "procedure",
+      "summary": "Lists the documents required for arrival and departure of aircraft in Hong Kong, including General Declaration and Cargo Manifest copies.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "documents",
+        "General Declaration",
+        "Cargo Manifest",
+        "Hong Kong",
+        "clearance"
+      ],
+      "wiki_links": [
+        "Scheduled and Non-Scheduled Air Services Permits in Hong Kong",
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "procedures/documentary-requirements-for-aircraft-clearance-in-hong-kong.md",
+      "backlinks": []
+    },
+    "procedures/en-route-navigation-charges-for-overflights-of-hong-kong-fir.md": {
+      "title": "En-route Navigation Charges for Overflights of Hong Kong FIR",
+      "type": "procedure",
+      "summary": "Procedures and rates for en-route navigation charges (ENC) for aircraft passing through Hong Kong FIR without landing, including payment methods and exemptions.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "en-route charges",
+        "Hong Kong FIR",
+        "overflight",
+        "payment",
+        "exemption"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "procedures/en-route-navigation-charges-for-overflights-of-hong-kong-fir.md",
+      "backlinks": []
+    },
+    "procedures/flight-documents-and-pilot-licensing-in-hong-kong.md": {
+      "title": "Flight Documents and Pilot Licensing in Hong Kong",
+      "type": "procedure",
+      "summary": "Required flight documents to be carried on aircraft in Hong Kong and procedures for foreign pilot licence validation and conversion.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "flight documents",
+        "pilot licence",
+        "foreign licence",
+        "Hong Kong",
+        "CAD54"
+      ],
+      "wiki_links": [
+        "Aircraft Radio and Navigation Equipment Requirements in Hong Kong FIR",
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "procedures/flight-documents-and-pilot-licensing-in-hong-kong.md",
+      "backlinks": []
+    },
+    "procedures/flight-plan-route-requirements-for-hong-kong-fir.md": {
+      "title": "Flight Plan Route Requirements for Hong Kong FIR",
+      "type": "procedure",
+      "summary": "Detailed route syntax and waypoint requirements for flights to/from HKIA, Macao, Guangzhou, Shenzhen, and transiting the FIR.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "route",
+        "waypoint",
+        "HKIA",
+        "Macao",
+        "Guangzhou",
+        "Shenzhen",
+        "transit"
+      ],
+      "wiki_links": [
+        "Flight Plan Submission Requirements",
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "procedures/flight-plan-route-requirements-for-hong-kong-fir.md",
+      "backlinks": []
+    },
+    "procedures/flight-procedures-at-vhhh--sids--stars--and-ils-operations.md": {
+      "title": "Flight Procedures at VHHH: SIDs, STARs, and ILS Operations",
+      "type": "procedure",
+      "summary": "Standard Instrument Departures, arrivals, and ILS approach procedures at Hong Kong International Airport, including RNP requirements and contingency procedures.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "SID",
+        "STAR",
+        "ILS",
+        "RNP",
+        "VHHH"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "procedures/flight-procedures-at-vhhh--sids--stars--and-ils-operations.md",
+      "backlinks": []
+    },
+    "procedures/hong-kong-atfm-notice.md": {
+      "title": "Hong Kong ATFM Notice",
+      "type": "procedure",
+      "summary": "Special email notices issued by Hong Kong ATFMU to promulgate ATFM-related information on special events, including details of measures and operational impact.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "ATFM Notice",
+        "Hong Kong ATFMU",
+        "special events",
+        "stakeholders",
+        "email"
+      ],
+      "wiki_links": [
+        "ATFM Overview",
+        "raw/sources/AIP_17july2026",
+        "Hong Kong ATFMU"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "procedures/hong-kong-atfm-notice.md",
+      "backlinks": []
+    },
+    "procedures/hong-kong-fir-aviation-procedures--airac--notam--altimeter--and-communication.md": {
+      "title": "Hong Kong FIR Aviation Procedures: AIRAC, NOTAM, Altimeter, and Communication",
+      "type": "procedure",
+      "summary": "This note consolidates operational procedures for the Hong Kong FIR, including AIRAC/NOTAM publication, altimeter settings, and communication requirements.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "AIRAC",
+        "NOTAM",
+        "altimeter",
+        "communication",
+        "Hong Kong FIR"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "procedures/hong-kong-fir-aviation-procedures--airac--notam--altimeter--and-communication.md",
+      "backlinks": []
+    },
+    "procedures/interception-of-civil-aircraft-procedures.md": {
+      "title": "Interception of Civil Aircraft Procedures",
+      "type": "procedure",
+      "summary": "Procedures for intercepted aircraft, including radio communication phrases and visual signals.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "interception",
+        "visual signals",
+        "radio phrases",
+        "SSR transponder",
+        "emergency frequency"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026",
+        "Unlawful Interference"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "procedures/interception-of-civil-aircraft-procedures.md",
+      "backlinks": [
+        "concepts/unlawful-interference--enr-1-13.md"
+      ]
+    },
+    "procedures/large-scale-weather-deviation-contingency-procedure--lswdcp.md": {
+      "title": "Large Scale Weather Deviation Contingency Procedure (LSWDCP)",
+      "type": "procedure",
+      "summary": "LSWDCP is a coordinated procedure among multiple ACCs to mitigate widespread weather impacts, with a specific flight level allocation scheme and NOTAM activation.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "LSWDCP",
+        "weather deviation",
+        "flight level allocation",
+        "NOTAM",
+        "South China Sea"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "procedures/large-scale-weather-deviation-contingency-procedure--lswdcp.md",
+      "backlinks": []
+    },
+    "procedures/low-visibility-operations-and-local-procedures-at-hong-kong-international-airport.md": {
+      "title": "Low Visibility Operations and Local Procedures at Hong Kong International Airport",
+      "type": "procedure",
+      "summary": "This note consolidates procedures for low visibility operations, runway utilisation, local traffic regulations, and helicopter operations at Hong Kong International Airport (VHHH). It covers CAT II/III ILS capabilities, reduced runway separation minima, flight notification requirements, and specific helicopter routes and holding patterns.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "low visibility operations",
+        "CAT II/III",
+        "ILS",
+        "Hong Kong International Airport",
+        "helicopter procedures",
+        "runway separation"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "procedures/low-visibility-operations-and-local-procedures-at-hong-kong-international-airport.md",
+      "backlinks": []
+    },
+    "procedures/meteorological-observations-and-reports-at-hkia.md": {
+      "title": "Meteorological Observations and Reports at HKIA",
+      "type": "procedure",
+      "summary": "Details of routine and special weather observations, reporting intervals, and criteria for special reports at Hong Kong International Airport.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "METAR",
+        "SPECI",
+        "weather observation",
+        "special report",
+        "RVR"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "procedures/meteorological-observations-and-reports-at-hkia.md",
+      "backlinks": []
+    },
+    "procedures/meteorological-services-for-flight-operations.md": {
+      "title": "Meteorological Services for Flight Operations",
+      "type": "procedure",
+      "summary": "Overview of services provided by the AMO for pre-flight planning, in-flight re-planning, and flight documentation at Hong Kong International Airport.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "flight documentation",
+        "AMIDS",
+        "TAF",
+        "pre-flight planning",
+        "in-flight"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "procedures/meteorological-services-for-flight-operations.md",
+      "backlinks": []
+    },
+    "procedures/noise-abatement-procedures-at-vhhh.md": {
+      "title": "Noise Abatement Procedures at VHHH",
+      "type": "procedure",
+      "summary": "Noise abatement departure procedures and mitigating measures implemented at Hong Kong International Airport during specific hours.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "noise abatement",
+        "NADP",
+        "noise mitigation",
+        "VHHH"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "procedures/noise-abatement-procedures-at-vhhh.md",
+      "backlinks": []
+    },
+    "procedures/procedures-for-local-flights-in-ucaras-and-skara.md": {
+      "title": "Procedures for Local Flights in UCARAs and SKARA",
+      "type": "procedure",
+      "summary": "Procedures for operating in Uncontrolled Airspace Reporting Areas and Shek Kong Aerodrome Reporting Area, including communication and reporting requirements.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "UCARA",
+        "SKARA",
+        "VFR",
+        "flight information",
+        "VHHH"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "procedures/procedures-for-local-flights-in-ucaras-and-skara.md",
+      "backlinks": []
+    },
+    "procedures/procedures-for-use-of-specific-ats-routes-in-hong-kong-fir.md": {
+      "title": "Procedures for Use of Specific ATS Routes in Hong Kong FIR",
+      "type": "procedure",
+      "summary": "Restrictions and procedures for using ATS routes A202, A1(E), G581, G86, M750, M503, M771, L642, M772, and Q1 in the Hong Kong FIR.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "ATS routes",
+        "Hong Kong FIR",
+        "RNAV",
+        "RNP",
+        "restrictions"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "procedures/procedures-for-use-of-specific-ats-routes-in-hong-kong-fir.md",
+      "backlinks": []
+    },
+    "procedures/radio-communication-failure-procedures.md": {
+      "title": "Radio Communication Failure Procedures",
+      "type": "procedure",
+      "summary": "Detailed procedures for aircraft experiencing radio communication failure in Hong Kong FIR, including arriving, departing, and overflying aircraft.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "radio failure",
+        "communication failure",
+        "STAR",
+        "SID",
+        "SSR code 7600"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "procedures/radio-communication-failure-procedures.md",
+      "backlinks": [
+        "concepts/holding--approach--departure--and-rvsm-procedures-in-hong-kong-fir.md"
+      ]
+    },
+    "procedures/requests-for-exemption-from-atfm-measures.md": {
+      "title": "Requests for Exemption from ATFM Measures",
+      "type": "procedure",
+      "summary": "Flights requesting ATFM exemption (except automatic exemptions like SAR, HEAD, etc.) must obtain prior approval and file STS/ATFMX in item 18, with RMK/ for applicable FIRs.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "ATFMX",
+        "exemption",
+        "flight plan",
+        "STS",
+        "ATFM"
+      ],
+      "wiki_links": [
+        "Flight Planning",
+        "ATFM Measures",
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "procedures/requests-for-exemption-from-atfm-measures.md",
+      "backlinks": []
+    },
+    "procedures/rvr-and-visibility-reporting-at-hkia.md": {
+      "title": "RVR and Visibility Reporting at HKIA",
+      "type": "procedure",
+      "summary": "Procedures for runway visual range (RVR) and visibility observation, reporting scales, and dissemination at Hong Kong International Airport.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "RVR",
+        "visibility",
+        "transmissometer",
+        "forward scatterer",
+        "MET report"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "procedures/rvr-and-visibility-reporting-at-hkia.md",
+      "backlinks": []
+    },
+    "procedures/rvsm-phraseology.md": {
+      "title": "RVSM Phraseology",
+      "type": "procedure",
+      "summary": "Standardized phraseology for RVSM operations ensures clear communication between pilots and controllers regarding approval status and contingencies.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "RVSM",
+        "phraseology",
+        "ATC",
+        "pilot",
+        "communication"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "procedures/rvsm-phraseology.md",
+      "backlinks": []
+    },
+    "procedures/scheduled-and-non-scheduled-air-services-permits-in-hong-kong.md": {
+      "title": "Scheduled and Non-Scheduled Air Services Permits in Hong Kong",
+      "type": "procedure",
+      "summary": "Outlines the application process and requirements for operating scheduled and non-scheduled air services to and from Hong Kong.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "air services",
+        "operating permit",
+        "Hong Kong",
+        "scheduled",
+        "non-scheduled"
+      ],
+      "wiki_links": [
+        "Entry, Transit and Departure of Aircraft in Hong Kong",
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "procedures/scheduled-and-non-scheduled-air-services-permits-in-hong-kong.md",
+      "backlinks": [
+        "procedures/documentary-requirements-for-aircraft-clearance-in-hong-kong.md"
+      ]
+    },
+    "procedures/sid-procedures-from-macao-transiting-hong-kong-airspace.md": {
+      "title": "SID Procedures from Macao Transiting Hong Kong Airspace",
+      "type": "procedure",
+      "summary": "Standard Instrument Departure (SID) procedures for flights departing Macao that transit Hong Kong airspace, including speed control and loss of communication procedures.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "SID",
+        "VMMC",
+        "departure",
+        "speed control",
+        "loss of communication"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "procedures/sid-procedures-from-macao-transiting-hong-kong-airspace.md",
+      "backlinks": []
+    },
+    "procedures/sigmet-and-aerodrome-warning-services.md": {
+      "title": "SIGMET and Aerodrome Warning Services",
+      "type": "procedure",
+      "summary": "Description of SIGMET issuance for the Hong Kong FIR and aerodrome warnings for HKIA, including criteria and phenomena covered.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "SIGMET",
+        "aerodrome warning",
+        "Hong Kong FIR",
+        "volcanic ash",
+        "tropical cyclone"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "procedures/sigmet-and-aerodrome-warning-services.md",
+      "backlinks": []
+    },
+    "procedures/star-and-missed-approach-procedures-for-vmmc.md": {
+      "title": "STAR and Missed Approach Procedures for VMMC",
+      "type": "procedure",
+      "summary": "Standard Arrival (STAR) and missed approach procedures for Macao International Airport transiting Hong Kong airspace, including speed restrictions and communication loss actions.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "STAR",
+        "VMMC",
+        "missed approach",
+        "speed restriction",
+        "arrival"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "procedures/star-and-missed-approach-procedures-for-vmmc.md",
+      "backlinks": []
+    },
+    "procedures/suspension-of-rvsm-and-non-rvsm-compliant-aircraft-operations.md": {
+      "title": "Suspension of RVSM and Non-RVSM Compliant Aircraft Operations",
+      "type": "procedure",
+      "summary": "RVSM suspension occurs with greater than moderate turbulence, and non-RVSM compliant aircraft may operate in RVSM airspace only under specific circumstances with priority given to RVSM-approved aircraft.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "RVSM suspension",
+        "non-RVSM",
+        "turbulence",
+        "priority",
+        "Hong Kong FIR"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "procedures/suspension-of-rvsm-and-non-rvsm-compliant-aircraft-operations.md",
+      "backlinks": []
+    },
+    "procedures/tropical-cyclone-and-strong-monsoon-wind-procedures.md": {
+      "title": "Tropical Cyclone and Strong Monsoon Wind Procedures",
+      "type": "procedure",
+      "summary": "Procedures and warnings for tropical cyclones and strong monsoon winds affecting Hong Kong International Airport, including signal meanings and precautions.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "tropical cyclone",
+        "monsoon",
+        "warning signals",
+        "precautions",
+        "Hong Kong"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "procedures/tropical-cyclone-and-strong-monsoon-wind-procedures.md",
+      "backlinks": []
+    },
+    "procedures/vhss-flight-procedures-and-communications.md": {
+      "title": "VHSS Flight Procedures and Communications",
+      "type": "procedure",
+      "summary": "Traffic circuit, final approach, departure routes, and communication frequencies at Sky Shuttle Heliport.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "VHSS",
+        "flight procedures",
+        "traffic circuit",
+        "communications",
+        "approach"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "procedures/vhss-flight-procedures-and-communications.md",
+      "backlinks": []
+    },
+    "procedures/vhss-local-traffic-regulations-and-noise-abatement.md": {
+      "title": "VHSS Local Traffic Regulations and Noise Abatement",
+      "type": "procedure",
+      "summary": "Operational restrictions and noise abatement procedures at Sky Shuttle Heliport.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "VHSS",
+        "regulations",
+        "noise abatement",
+        "helicopter",
+        "restrictions"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "procedures/vhss-local-traffic-regulations-and-noise-abatement.md",
+      "backlinks": []
+    },
+    "procedures/volmet-and-d-volmet-services-in-hong-kong.md": {
+      "title": "VOLMET and D-VOLMET Services in Hong Kong",
+      "type": "procedure",
+      "summary": "Details of VOLMET and D-VOLMET broadcasts for Hong Kong, including frequencies, schedules, and aerodromes covered.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "VOLMET",
+        "D-VOLMET",
+        "HF",
+        "VHF",
+        "broadcast"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "procedures/volmet-and-d-volmet-services-in-hong-kong.md",
+      "backlinks": []
+    },
+    "procedures/weather-deviation-procedures-in-hong-kong-fir.md": {
+      "title": "Weather Deviation Procedures in Hong Kong FIR",
+      "type": "procedure",
+      "summary": "Procedures for weather deviation in Hong Kong FIR include priority clearance requests, actions when communications are established or not, and specific level change criteria.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "weather deviation",
+        "ATC clearance",
+        "contingency",
+        "Hong Kong FIR",
+        "procedures"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "procedures/weather-deviation-procedures-in-hong-kong-fir.md",
+      "backlinks": []
+    },
+    "procedures/wind-measurement-and-reporting-at-hkia.md": {
+      "title": "Wind Measurement and Reporting at HKIA",
+      "type": "procedure",
+      "summary": "Details of anemometer locations, official wind reporting, and substitution procedures at Hong Kong International Airport.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "anemometer",
+        "wind report",
+        "runway",
+        "official wind",
+        "substitution"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "procedures/wind-measurement-and-reporting-at-hkia.md",
+      "backlinks": []
+    },
+    "synthesis/airspace-classification-and-reporting-points-in-hong-kong.md": {
+      "title": "Airspace Classification and Reporting Points in Hong Kong",
+      "type": "synthesis",
+      "summary": "This note synthesizes the airspace classifications and reporting point requirements across ATS and PBN routes in Hong Kong, highlighting the differences between Class A and Class C airspace and the compulsory reporting point rules.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "airspace classification",
+        "Class A",
+        "Class C",
+        "reporting points",
+        "Hong Kong"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "synthesis/airspace-classification-and-reporting-points-in-hong-kong.md",
+      "backlinks": []
+    },
+    "synthesis/differences-from-icao-standards-in-hong-kong-aip-gen-1-7.md": {
+      "title": "Differences from ICAO Standards in Hong Kong AIP GEN 1.7",
+      "type": "synthesis",
+      "summary": "This note summarizes the key differences between Hong Kong's aviation regulations and ICAO Standards, Recommended Practices and Procedures as published in AIP GEN 1.7.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "ICAO",
+        "Hong Kong",
+        "differences",
+        "AIP",
+        "GEN 1.7"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "synthesis/differences-from-icao-standards-in-hong-kong-aip-gen-1-7.md",
+      "backlinks": []
+    },
+    "synthesis/flight-level-assignment-scheme--flas--in-hong-kong-fir.md": {
+      "title": "Flight Level Assignment Scheme (FLAS) in Hong Kong FIR",
+      "type": "synthesis",
+      "summary": "FLAS tables allocate specific flight levels for flights between Hong Kong FIR and adjacent FIRs/control areas, ensuring separation and efficiency.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "FLAS",
+        "flight levels",
+        "Hong Kong FIR",
+        "adjacent FIRs",
+        "routes"
+      ],
+      "wiki_links": [
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "synthesis/flight-level-assignment-scheme--flas--in-hong-kong-fir.md",
+      "backlinks": []
+    },
+    "synthesis/hong-kong-civil-aviation-legislation-and-international-conventions.md": {
+      "title": "Hong Kong Civil Aviation Legislation and International Conventions",
+      "type": "synthesis",
+      "summary": "Overview of key Hong Kong regulations governing civil aviation and the international treaties applicable to Hong Kong.",
+      "sources": [
+        "[[raw/sources/AIP_17july2026]]"
+      ],
+      "source_count": 1,
+      "keywords": [
+        "Hong Kong regulations",
+        "Chicago Convention",
+        "Montreal Convention",
+        "air law",
+        "Cap. 448"
+      ],
+      "wiki_links": [
+        "Aircraft Radio and Navigation Equipment Requirements in Hong Kong FIR",
+        "raw/sources/AIP_17july2026"
+      ],
+      "last_updated": "2026-08-05",
+      "path": "synthesis/hong-kong-civil-aviation-legislation-and-international-conventions.md",
+      "backlinks": []
+    }
+  }
+}

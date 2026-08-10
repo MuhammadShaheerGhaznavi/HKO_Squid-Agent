@@ -1,0 +1,11 @@
+streamlit>=1.57
+langchain>=1.0
+langchain-openai
+langgraph
+pydantic
+python-dotenv
+tiktoken
+rank-bm25
+PyMuPDF
+fastapi
+uvicorn
