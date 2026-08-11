@@ -151,8 +151,20 @@ def read_raw_document(state: IngestionState) -> Dict[str, Any]: # Handle .MD and
                 })
             print(f"📑 Extracted PDF TOC: {len(toc)} entries (levels: {set(e['level'] for e in toc)})")
 
+        page_count = doc.page_count
         doc.close()
         print(f"📄 Loaded PDF document: {path.name} ({len(content)} characters)")
+
+        # Save TOC as sidecar for retrieval agent page-jump
+        if toc:
+            toc_path = path.with_suffix(".toc.json")
+            toc_data = {
+                "source": path.name,
+                "total_pages": page_count,
+                "entries": toc,
+            }
+            toc_path.write_text(json.dumps(toc_data, indent=2, ensure_ascii=False), encoding="utf-8")
+            print(f"📑 Saved TOC sidecar: {toc_path.name} ({len(toc)} entries)")
     else:
         content = path.read_text(encoding="utf-8")
         print(f"📄 Loaded source document: {path.name} ({len(content)} characters)")

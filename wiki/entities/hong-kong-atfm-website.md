@@ -3,11 +3,11 @@
 ### Properties
 title: "Hong Kong ATFM Website"
 type: entity
-summary: "The Hong Kong ATFM Website (atfmc.gov.hk) provides updated ATFM information, CTOTs, and ADPs, with account access for AUs."
+summary: "Website providing updated ATFM information, CTOT distribution, and account access for stakeholders."
 sources: ["[[raw/sources/AIP_17july2026]]"]
 source_count: 1
-keywords: ["ATFM website", "Hong Kong ATFMU", "CTOT", "ADP", "stakeholders"]
-last_updated: 2026-08-05
+keywords: ["ATFM website", "CTOT", "ADP", "Hong Kong ATFMU"]
+last_updated: 2026-08-11
 
 ## Content
-The Hong Kong ATFM Website (https://www.atfmc.gov.hk/) has been operational since **June 2020**. It provides stakeholders with updated ATFM information affecting flights to/from airports within the Hong Kong ATFM Node and transiting Hong Kong FIR. CTOT information distributed by emails and Slot Allocation Messages (SAM) via AFTN for HKIA & MIA is posted. AUs can contact Hong Kong ATFMU (hkatfmu@cad.gov.hk) to create an account for specific functions, including referencing flight information, checking airport/waypoint status, and viewing updated ADPs in the APAC region. The website may not always be updated timely; users should cross-check with ADP, NOTAM, AIC, emails. A 'User Guide' link is available. See [[Hong Kong ATFMU]] and [[ATFM Overview]].
+The Hong Kong ATFM Website (https://www.atfmc.gov.hk/) operational since June 2020, provides ATFM info for flights to/from HKIA, MIA, and transiting Hong Kong FIR. CTOT info distributed via email and SAM via AFTN is posted. Users can create accounts via hkatfmu@cad.gov.hk to access flight info, airport/waypoint status, and ADPs. Website may not always be timely; users should cross-check with ADP, NOTAM, AIC. A User Guide is available. See [[Hong Kong ATFMU]].

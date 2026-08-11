@@ -73,26 +73,30 @@ if prompt := st.chat_input("Ask a question about the wiki..."):
         for chunk in stream_query(prompt):
             stripped = chunk.strip()
 
-            if stripped.startswith("[Tool Call]"):
-                label = stripped[len("[Tool Call] "):]
-                tool_calls_log.append(label)
-                status.update(label=f"Running: {label.split('(')[0]}", state="running")
+            if stripped == "## Answer":
+                continue  # heading handled by answer_text accumulation
 
-            elif stripped.startswith("[Tool Result]"):
-                result_text = stripped[len("[Tool Result]"):].strip()
-                if len(result_text) > 120:
-                    result_text = result_text[:120] + "..."
-                tool_name = tool_calls_log[-1].split("(")[0] if tool_calls_log else "tool"
-                status.update(label=f"Got results from: {tool_name}", state="running")
+            # Tool call: starts with emoji + bold label
+            is_tool_call = any(stripped.startswith(f"{emoji} **") for emoji in ["🔍", "📖", "🔗", "📄", "🔧"])
+            if is_tool_call:
+                label = stripped.split("`")[0].strip() if "`" in stripped else stripped
+                tool_calls_log.append(label)
+                tool_fn = label.split("**")[1].strip() if "**" in label else "tool"
+                status.update(label=f"Running: {tool_fn}", state="running")
+
+            elif stripped.startswith("─") and answer_text == "":
+                # Separator line — skip
+                pass
 
             elif stripped.startswith("[Max iterations"):
                 status.update(label=stripped, state="error")
 
             elif stripped:
-                if answer_text == "":
+                if answer_text == "" and not is_tool_call:
                     status.update(label="Synthesizing answer...", state="running")
-                answer_text += chunk
-                answer_placeholder.markdown(answer_text)
+                if not is_tool_call:
+                    answer_text += chunk
+                    answer_placeholder.markdown(answer_text)
 
         status.update(label="Complete", state="complete")
         if answer_text:

@@ -3,15 +3,15 @@
 ### Properties
 title: "Designated Authorities in Hong Kong"
 type: entity
-summary: "Contact information for key aviation-related authorities in Hong Kong."
+summary: "Lists the key government authorities responsible for civil aviation, meteorology, customs, immigration, health, airport charges, enroute charges, veterinary, and accident investigation in Hong Kong."
 sources: ["[[raw/sources/AIP_17july2026]]"]
 source_count: 1
-keywords: ["Hong Kong", "authorities", "Civil Aviation", "Meteorology", "Customs", "Immigration", "Health"]
-last_updated: 2026-08-05
+keywords: ["authorities", "Hong Kong", "civil aviation", "meteorology", "customs"]
+last_updated: 2026-08-11
 
 ## Content
-The AIP lists designated authorities with contact details:
-- Civil Aviation: Director-General of Civil Aviation, CAD Headquarters, 1 Tung Fai Road, HKIA, Lantau, Hong Kong; Tel +852 2910 6350; Fax +852 2910 6351; AFS VHHHYAYX; email enquiry@cad.gov.hk; web http://www.cad.gov.hk.
+The designated authorities in Hong Kong include:
+- Civil Aviation: Director-General of Civil Aviation, Civil Aviation Department Headquarters, 1 Tung Fai Road, HKIA, Lantau; Tel +852 2910 6350; Fax +852 2910 6351; AFS VHHHYAYX; email enquiry@cad.gov.hk; web http://www.cad.gov.hk.
 - Meteorology: Director of the Hong Kong Observatory, 134A Nathan Road, Kowloon; Tel +852 2926 8200; Fax +852 2311 9448; AFS VHHHYMYX; email mailbox@hko.gov.hk; web http://www.weather.gov.hk.
 - Customs: Commissioner of Customs and Excise, Customs Headquarters Building, 222 Java Road, North Point; Tel +852 2815 7711; Fax +852 2542 3334; email customsenquiry@customs.gov.hk; web http://www.customs.gov.hk.
 - Immigration: Director of Immigration, Immigration Headquarters, 61 Po Yap Road, Tseung Kwan O, New Territories; Tel +852 2824 6111; Fax +852 2877 7711; email enquiry@immd.gov.hk; web http://www.immd.gov.hk.

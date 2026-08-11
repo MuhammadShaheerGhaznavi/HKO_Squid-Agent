@@ -1,0 +1,496 @@
+{
+  "source": "AIP_17july2026.pdf",
+  "total_pages": 612,
+  "entries": [
+    {
+      "level": 1,
+      "title": "COVER",
+      "page": 1
+    },
+    {
+      "level": 1,
+      "title": "GENERAL",
+      "page": 2
+    },
+    {
+      "level": 2,
+      "title": "GEN 0",
+      "page": 2
+    },
+    {
+      "level": 3,
+      "title": "GEN-0.1：PREFACE",
+      "page": 2
+    },
+    {
+      "level": 3,
+      "title": "GEN-0.2：RECORD OF AIP AMENDMENTS",
+      "page": 6
+    },
+    {
+      "level": 3,
+      "title": "GEN-0.3：RECORD OF AIP SUPPLEMENTS",
+      "page": 8
+    },
+    {
+      "level": 3,
+      "title": "GEN-0.4：CHECKLIST OF AIP PAGES",
+      "page": 10
+    },
+    {
+      "level": 3,
+      "title": "GEN-0.5：LIST OF HAND AMENDMENTS TO THE AIP",
+      "page": 18
+    },
+    {
+      "level": 3,
+      "title": "GEN-0.6：TABLE OF CONTENTS TO PART 1 (GEN SECTION)",
+      "page": 20
+    },
+    {
+      "level": 2,
+      "title": "GEN 1",
+      "page": 24
+    },
+    {
+      "level": 3,
+      "title": "GEN-1.1：DESIGNATED AUTHORITIES",
+      "page": 24
+    },
+    {
+      "level": 3,
+      "title": "GEN-1.2：ENTRY， TRANSIT AND DEPARTURE OF AIRCRAFT",
+      "page": 28
+    },
+    {
+      "level": 3,
+      "title": "GEN-1.3：ENTRY， TRANSIT AND DEPARTURE OF PASSENGERS AND CREW",
+      "page": 32
+    },
+    {
+      "level": 3,
+      "title": "GEN-1.4：ENTRY， TRANSIT AND DEPARTURE OF CARGO",
+      "page": 38
+    },
+    {
+      "level": 3,
+      "title": "GEN-1.5：AIRCRAFT INSTRUMENTS， EQUIPMENT， AND FLIGHT DOCUMENTS",
+      "page": 40
+    },
+    {
+      "level": 3,
+      "title": "GEN-1.6：SUMMARY OF HONG KONG REGULATIONS AND INTERNATIONAL AGREEMENTS／CONVENTIONS",
+      "page": 44
+    },
+    {
+      "level": 3,
+      "title": "GEN-1.7：DIFFERENCES FROM ICAO STANDARDS， RECOMMENDED PRACTICES AND PROCEDURES",
+      "page": 48
+    },
+    {
+      "level": 2,
+      "title": "GEN 2",
+      "page": 60
+    },
+    {
+      "level": 3,
+      "title": "GEN-2.1：MEASURING SYSTEM， AIRCRAFT MARKINGS， HOLIDAYS",
+      "page": 60
+    },
+    {
+      "level": 3,
+      "title": "GEN-2.2：ABBREVIATIONS",
+      "page": 62
+    },
+    {
+      "level": 3,
+      "title": "GEN-2.3：CHART SYMBOLS",
+      "page": 72
+    },
+    {
+      "level": 3,
+      "title": "GEN-2.4：LOCATION INDICATORS",
+      "page": 74
+    },
+    {
+      "level": 3,
+      "title": "GEN-2.5：LIST OF RADIO NAVIGATION AIDS",
+      "page": 76
+    },
+    {
+      "level": 3,
+      "title": "GEN-2.6：CONVERSION TABLES",
+      "page": 78
+    },
+    {
+      "level": 3,
+      "title": "GEN-2.7：SUNRISE／SUNSET TABLES",
+      "page": 82
+    },
+    {
+      "level": 2,
+      "title": "GEN 3",
+      "page": 86
+    },
+    {
+      "level": 3,
+      "title": "GEN-3.1：AERONAUTICAL INFORMATION SERVICES",
+      "page": 86
+    },
+    {
+      "level": 3,
+      "title": "GEN-3.2：AERONAUTICAL CHARTS",
+      "page": 90
+    },
+    {
+      "level": 3,
+      "title": "GEN-3.3：AIR TRAFFIC SERVICES",
+      "page": 94
+    },
+    {
+      "level": 3,
+      "title": "GEN-3.4：COMMUNICATION SERVICES",
+      "page": 96
+    },
+    {
+      "level": 3,
+      "title": "GEN-3.5：METEOROLOGICAL SERVICES",
+      "page": 102
+    },
+    {
+      "level": 3,
+      "title": "GEN-3.6：SEARCH AND RESCUE",
+      "page": 117
+    },
+    {
+      "level": 2,
+      "title": "GEN 4",
+      "page": 119
+    },
+    {
+      "level": 3,
+      "title": "GEN-4.1：AERODROME／HELIPORT CHARGES",
+      "page": 119
+    },
+    {
+      "level": 3,
+      "title": "GEN-4.2：AIR NAVIGATION SERVICES CHARGES",
+      "page": 121
+    },
+    {
+      "level": 1,
+      "title": "EN-ROUTE",
+      "page": 123
+    },
+    {
+      "level": 2,
+      "title": "ENR 0",
+      "page": 123
+    },
+    {
+      "level": 3,
+      "title": "ENR-0.6：TABLE OF CONTENTS TO PART 2 (ENR SECTION)",
+      "page": 123
+    },
+    {
+      "level": 2,
+      "title": "ENR 1",
+      "page": 127
+    },
+    {
+      "level": 3,
+      "title": "ENR-1.1：GENERAL RULES",
+      "page": 127
+    },
+    {
+      "level": 3,
+      "title": "ENR-1.2：VISUAL FLIGHT RULES",
+      "page": 131
+    },
+    {
+      "level": 3,
+      "title": "ENR-1.3：INSTRUMENT FLIGHT RULES",
+      "page": 133
+    },
+    {
+      "level": 3,
+      "title": "ENR-1.4：ATS AIRSPACE CLASSIFICATION",
+      "page": 135
+    },
+    {
+      "level": 3,
+      "title": "ENR-1.5：HOLDING， APPROACH AND DEPARTURE PROCEDURES",
+      "page": 137
+    },
+    {
+      "level": 3,
+      "title": "ENR-1.6：ATS SURVEILLANCE SERVICES AND PROCEDURES",
+      "page": 145
+    },
+    {
+      "level": 3,
+      "title": "ENR-1.7：ALTIMETER SETTING PROCEDURES",
+      "page": 149
+    },
+    {
+      "level": 3,
+      "title": "ENR-1.8：REGIONAL SUPPLEMENTARY PROCEDURES (DOC 7030)",
+      "page": 151
+    },
+    {
+      "level": 3,
+      "title": "ENR-1.9：AIR TRAFFIC FLOW MANAGEMENT (ATFM)",
+      "page": 167
+    },
+    {
+      "level": 3,
+      "title": "ENR-1.10：FLIGHT PLANNING",
+      "page": 173
+    },
+    {
+      "level": 3,
+      "title": "ENR-1.11：ADDRESSING OF FLIGHT PLAN MESSAGES",
+      "page": 185
+    },
+    {
+      "level": 3,
+      "title": "ENR-1.12：INTERCEPTION OF CIVIL AIRCRAFT",
+      "page": 187
+    },
+    {
+      "level": 3,
+      "title": "ENR-1.13：UNLAWFUL INTERFERENCE",
+      "page": 191
+    },
+    {
+      "level": 3,
+      "title": "ENR-1.14：AIR TRAFFIC INCIDENTS",
+      "page": 193
+    },
+    {
+      "level": 2,
+      "title": "ENR 2",
+      "page": 195
+    },
+    {
+      "level": 3,
+      "title": "ENR-2.1：FIR， UIR， TMA",
+      "page": 195
+    },
+    {
+      "level": 3,
+      "title": "ENR-2.2：OTHER REGULATED AIRSPACE",
+      "page": 203
+    },
+    {
+      "level": 2,
+      "title": "ENR 3",
+      "page": 205
+    },
+    {
+      "level": 3,
+      "title": "ENR-3.1：ATS ROUTES",
+      "page": 205
+    },
+    {
+      "level": 3,
+      "title": "ENR-3.2：UPPER ATS ROUTES",
+      "page": 239
+    },
+    {
+      "level": 3,
+      "title": "ENR-3.3：PERFORMANCE BASED NAVIGATION (PBN) ROUTES",
+      "page": 241
+    },
+    {
+      "level": 3,
+      "title": "ENR-3.4：HELICOPTER ROUTES",
+      "page": 247
+    },
+    {
+      "level": 3,
+      "title": "ENR-3.5：OTHER ROUTES",
+      "page": 254
+    },
+    {
+      "level": 3,
+      "title": "ENR-3.6：EN-ROUTE HOLDING",
+      "page": 256
+    },
+    {
+      "level": 2,
+      "title": "ENR 4",
+      "page": 258
+    },
+    {
+      "level": 3,
+      "title": "ENR-4.1：RADIO NAVIGATION AIDS - EN-ROUTE",
+      "page": 258
+    },
+    {
+      "level": 3,
+      "title": "ENR-4.2：SPECIAL NAVIGATION SYSTEMS",
+      "page": 260
+    },
+    {
+      "level": 3,
+      "title": "ENR-4.3：GLOBAL NAVIGATION SATELLITE SYSTEM (GNSS)",
+      "page": 262
+    },
+    {
+      "level": 3,
+      "title": "ENR-4.4：NAME-CODE DESIGNATORS FOR SIGNIFICANT POINTS",
+      "page": 264
+    },
+    {
+      "level": 3,
+      "title": "ENR-4.5：AERONAUTICAL GROUND LIGHTS - EN-ROUTE",
+      "page": 272
+    },
+    {
+      "level": 2,
+      "title": "ENR 5",
+      "page": 274
+    },
+    {
+      "level": 3,
+      "title": "ENR-5.1：PROHIBITED, RESTRICTED AND DANGER AREAS",
+      "page": 274
+    },
+    {
+      "level": 3,
+      "title": "ENR-5.2：MILITARY EXERCISE AND TRAINING AREAS",
+      "page": 277
+    },
+    {
+      "level": 3,
+      "title": "ENR-5.3：OTHER ACTIVITIES OF A DANGEROUS NATURE AND OTHER POTENTIAL HAZARDS",
+      "page": 279
+    },
+    {
+      "level": 3,
+      "title": "ENR-5.4：AIR NAVIGATION OBSTACLES - EN-ROUTE",
+      "page": 281
+    },
+    {
+      "level": 3,
+      "title": "ENR-5.5：AERIAL SPORTING AND RECREATIONAL ACTIVITIES",
+      "page": 283
+    },
+    {
+      "level": 3,
+      "title": "ENR-5.6：BIRD MIGRATION IN HONG KONG",
+      "page": 288
+    },
+    {
+      "level": 2,
+      "title": "ENR 6",
+      "page": 290
+    },
+    {
+      "level": 3,
+      "title": "ENR-6.1：EN-ROUTE CHART",
+      "page": 290
+    },
+    {
+      "level": 3,
+      "title": "ENR-6.2：FLIGHT PLAN ROUTES",
+      "page": 291
+    },
+    {
+      "level": 3,
+      "title": "ENR-6.3：COMMUNICATION FACILITIES IN HONG KONG FIR",
+      "page": 292
+    },
+    {
+      "level": 3,
+      "title": "ENR-6.4：RADIO FACILITIES CHART",
+      "page": 293
+    },
+    {
+      "level": 3,
+      "title": "ENR-6.5：TERMINAL TRANSITION ROUTES (HONG KONG DEPARTURES ARRIVALS)",
+      "page": 294
+    },
+    {
+      "level": 3,
+      "title": "ENR-6.6：TERMINAL TRANSITION ROUTES (MACAO DEPARTURES ARRIVALS)",
+      "page": 295
+    },
+    {
+      "level": 3,
+      "title": "ENR-6.7：HONG KONG ATC SECTOR BOUNDARIES CHART",
+      "page": 296
+    },
+    {
+      "level": 1,
+      "title": "AERODROMES",
+      "page": 297
+    },
+    {
+      "level": 2,
+      "title": "AD 0",
+      "page": 297
+    },
+    {
+      "level": 3,
+      "title": "AD-0.6：TABLE OF CONTENTS TO PART 3",
+      "page": 297
+    },
+    {
+      "level": 2,
+      "title": "AD 1",
+      "page": 307
+    },
+    {
+      "level": 3,
+      "title": "AD-1.1：AERODROME／HELIPORT AVAILABILITY",
+      "page": 307
+    },
+    {
+      "level": 3,
+      "title": "AD-1.2：RESCUE AND FIRE FIGHTING SERVICES AND SNOW PLAN",
+      "page": 315
+    },
+    {
+      "level": 3,
+      "title": "AD-1.3：INDEX TO AERODROMES AND HELIPORTS",
+      "page": 317
+    },
+    {
+      "level": 3,
+      "title": "AD-1.4：GROUPING OF AERODROMES／HELIPORTS",
+      "page": 319
+    },
+    {
+      "level": 3,
+      "title": "AD-1.5：STATUS OF CERTIFICATION OF AERODROMES",
+      "page": 321
+    },
+    {
+      "level": 2,
+      "title": "AD 2",
+      "page": 323
+    },
+    {
+      "level": 3,
+      "title": "AD-2-VHHH：AERODROMES - VHHH",
+      "page": 323
+    },
+    {
+      "level": 3,
+      "title": "AD-2-VMMC：AERODROMES - VMMC",
+      "page": 559
+    },
+    {
+      "level": 2,
+      "title": "AD 3",
+      "page": 603
+    },
+    {
+      "level": 3,
+      "title": "AD-3-VHSS：HELIPORTS",
+      "page": 603
+    }
+  ]
+}

@@ -59,6 +59,17 @@ class WikiNoteParser:
         # Extract all [[wiki-links]] present in the file
         wiki_links = list(set(re.findall(r"\[\[(.*?)\]\]", content)))
 
+        # Extract AIP section references from the full content (e.g., GEN 3.1, ENR 1.5, AD 2-VHHH, GEN 3.5-HKO-EQ)
+        section_pattern = r"\b(?:GEN|ENR|AD)\s*\d+(?:[\.\-\u2013\u2014]+\d+)*(?:\s*-\s*[A-Z0-9]+)*"
+        sections = []
+        seen = set()
+        for m in re.finditer(section_pattern, content):
+            s = re.sub(r"\s+", " ", m.group(0)).strip()
+            if s not in seen:
+                seen.add(s)
+                sections.append(s)
+        metadata["sections"] = sections[:5]  # cap at 5 most referenced
+
         return metadata, body, wiki_links
 
     @staticmethod
@@ -152,6 +163,7 @@ class CatalogManager:
                     "source_count": len(sources),
                     "keywords": keywords,
                     "wiki_links": links,
+                    "sections": metadata.get("sections", []),  # extracted AIP section refs
                     "last_updated": str(last_updated_val),
                     "path": rel_path
                 }

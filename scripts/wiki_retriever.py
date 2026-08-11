@@ -1,5 +1,6 @@
 import json
 import math
+import re
 import subprocess
 from pathlib import Path
 from typing import List, Dict, Any, Optional, Tuple
@@ -37,6 +38,7 @@ class CatalogEntry: # keep track of catalog entries
     wiki_links: List[str]
     last_updated: str
     backlinks: List[str] = field(default_factory=list)  # precomputed in catalog.json
+    sections: List[str] = field(default_factory=list)  # AIP section refs (e.g., GEN 3.1)
 
     @property # what this
     def searchable_text(self) -> str:
@@ -83,6 +85,7 @@ class WikiRetriever:
                 sources=e.get("sources", []),
                 wiki_links=e.get("wiki_links", []),
                 backlinks=e.get("backlinks", []),
+                sections=e.get("sections", []),
                 last_updated=e.get("last_updated", ""),
             )
             self._catalog[ce.path] = ce
@@ -277,7 +280,6 @@ class WikiRetriever:
         return linked[:8]
 
     def _get_backlinks(self, filename: str) -> List[str]:
-        import re
         clean = filename.replace(".md", "").strip()
         pattern = re.compile(rf"\[\[{re.escape(clean)}\]\]", re.IGNORECASE)
         backlinks = []
@@ -292,16 +294,68 @@ class WikiRetriever:
                 continue
         return backlinks
 
-    def read_raw_source(self, filename: str, max_tokens: int = 3000) -> str:
+    def read_raw_source(self, filename: str, max_tokens: int = 3000, search: str = "") -> str:
         # Check raw/sources/ first, then raw/
         for base_dir in (RAW_SOURCES_DIR, RAW_DIR):
             target = base_dir / filename.lstrip("/")
             if target.exists():
                 break
+            # Auto-detect extension if not provided
+            for ext in (".pdf", ".md", ".txt"):
+                candidate = base_dir / (filename.lstrip("/") + ext)
+                if candidate.exists():
+                    target = candidate
+                    break
+            else:
+                continue
+            break
         else:
             return f"[Raw source not found: {filename}]"
 
         suffix = target.suffix.lower()
+
+        # If search term provided + PDF with TOC sidecar → direct page jump
+        if search and suffix == ".pdf":
+            toc_path = target.with_suffix(".toc.json")
+            if toc_path.exists():
+                try:
+                    toc = json.loads(toc_path.read_text(encoding="utf-8"))
+                    # Find best TOC entry matching search term (fuzzy normalization)
+                    search_lower = re.sub(r"[^a-z0-9]", "", search.lower())
+                    best_entry = None
+                    best_score = -1
+                    for entry in toc.get("entries", []):
+                        entry_stripped = re.sub(r"[^a-z0-9]", "", entry["title"].lower())
+                        # Exact match always wins
+                        if search_lower == entry_stripped:
+                            best_entry = entry
+                            break
+                        # Prefer entries where search is a substring (more specific match)
+                        if search_lower in entry_stripped:
+                            score = len(search_lower) / len(entry_stripped)  # higher = more specific
+                            if score > best_score:
+                                best_score = score
+                                best_entry = entry
+                    if best_entry:
+                        page_num = best_entry["page"]  # 1-indexed
+                        import fitz
+                        doc = fitz.open(str(target))
+                        start = max(0, page_num - 3)  # 3 pages before
+                        end = min(page_num + 4, doc.page_count)  # 4 pages after (~7-page window)
+                        content_parts = []
+                        for p in range(start, end):
+                            content_parts.append(doc[p].get_text())
+                        doc.close()
+                        content = "\n\n".join(content_parts)
+                        result = f"[Jumped to page {page_num} — matched '{best_entry['title']}']\n\n{content}"
+                        return _token_trim(result, max_tokens)
+                    # Search term not found in TOC
+                    return (f"[Search term '{search}' not found in TOC index of {filename}. "
+                            f"Try without search, or use a different term.]")
+                except Exception as e:
+                    print(f"[TOC jump failed: {e}]")
+                    pass  # TOC read failed — fall through to default behavior
+
         if suffix == ".pdf":
             try:
                 import fitz
@@ -418,8 +472,9 @@ class WikiRetriever:
         lines = ["## Wiki Search Results\n"]
         for i, r in enumerate(results, 1):
             entry = r.entry
+            section_tag = f" § {', '.join(entry.sections)}" if entry.sections else ""
             lines.append(
-                f"{i}. **{entry.title}** `[{entry.type}]` _(score: {r.score:.3f})_\n"
+                f"{i}. **{entry.title}** `[{entry.type}]{section_tag}` _(score: {r.score:.3f})_\n"
                 f"   Path: `{entry.path}`\n"
                 f"   Summary: {entry.summary}\n"
                 f"   Keywords: {', '.join(entry.keywords)}\n"

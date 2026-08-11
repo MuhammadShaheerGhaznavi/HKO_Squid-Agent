@@ -46,9 +46,9 @@ def get_related(path: str) -> str:
 
 
 @tool
-def read_raw_source(filename: str) -> str:
-    """Read a raw source file excerpt (e.g., 'bigtable.md' or 'AIP_17july2026.pdf'). Use only if the wiki notes lack details and you need the original document. Supports .md, .txt, and .pdf files."""
-    return _retriever.read_raw_source(filename)
+def read_raw_source(filename: str, search: str = "") -> str:
+    """Read a raw source file excerpt. If 'search' is provided (e.g., 'GEN 2.7'), jumps directly to the PDF page containing that text via the precomputed TOC index. Use this when wiki notes lack details and you know the section reference. Supports .md, .txt, and .pdf files."""
+    return _retriever.read_raw_source(filename, search=search)
 
 
 WIKI_TOOLS = [search_wiki, read_page, get_related, read_raw_source]
@@ -62,7 +62,7 @@ WORKFLOW:
 1. **Search first**: Always start with `search_wiki` to find relevant pages.
 2. **Read selectively**: After finding relevant pages, use `read_page` to get full content of the most promising 2-5 pages. You CAN pass page titles (e.g., 'Immigration Requirements') — they auto-resolve to file paths.
 3. **Explore connections**: Use `get_related` on key pages to discover linked concepts that may add context.
-4. **Cite sources**: When answering, cite the specific wiki pages you used by their title.
+4. **Cite sources**: When answering, cite BOTH the wiki page title AND the AIP section reference (shown as § GEN 3.1 beside the page title in search results). Example: *"Source: Meteorological Observations at HKIA (GEN 3.1, AIP Hong Kong)"*.
 5. **Answer concisely**: Synthesize a clear, accurate answer grounded in the wiki content. Do not invent information.
 
 TERMINATION RULES:
@@ -180,6 +180,12 @@ def stream_query(query: str, max_iterations: int = MAX_AGENT_ITERATIONS) -> Gene
     }
 
     last_answer = ""
+    display_names = {
+        "search_wiki": "Searching wiki",
+        "read_page": "Reading page",
+        "get_related": "Related pages",
+        "read_raw_source": "Raw source",
+    }
 
     for event in _graph.stream(state, stream_mode="values"):
         msgs = event.get("messages", [])
@@ -196,7 +202,7 @@ def stream_query(query: str, max_iterations: int = MAX_AGENT_ITERATIONS) -> Gene
         if isinstance(last_msg, ToolMessage): 
             tool_output = str(last_msg.content)
             truncated = tool_output[:800] + "..." if len(tool_output) > 800 else tool_output
-            yield f"---\n[Tool Result]\n{truncated}\n"
+            yield f"\n{truncated}\n"
 
         elif isinstance(last_msg, AIMessage):
             if last_msg.tool_calls:
@@ -204,19 +210,29 @@ def stream_query(query: str, max_iterations: int = MAX_AGENT_ITERATIONS) -> Gene
                     tool_name = tc["name"]
                     tool_args = tc.get("args", {})
                     args_str = ", ".join(f"{k}={repr(v)}" for k, v in tool_args.items())
-                    yield f"[Tool Call] {tool_name}({args_str})\n"
+                    label = display_names.get(tool_name, tool_name)
+                    emoji = {"search_wiki": "🔍", "read_page": "📖", "get_related": "🔗", "read_raw_source": "📄"}.get(tool_name, "🔧")
+                    yield f"\n{'─' * 50}\n"
+                    yield f"{emoji} **{label}** `{args_str}`\n"
             else:
                 last_answer = str(last_msg.content)
-                yield f"\n{last_answer}\n"
+                yield f"\n{'─' * 50}\n## Answer\n\n{last_answer}\n"
 
     return last_answer
 
 
 def run_query(query: str, max_iterations: int = MAX_AGENT_ITERATIONS) -> str:
     final = ""
+    in_answer = False
+    answer_lines = []
     for chunk in stream_query(query, max_iterations):
-        if chunk.strip() and not chunk.startswith("[") and not chunk.startswith("---"):
-            final = chunk.strip()
+        if chunk.strip() == "## Answer":
+            in_answer = True
+            answer_lines = []
+            continue
+        if in_answer:
+            answer_lines.append(chunk)
+            final = "".join(answer_lines).strip()
         sys.stdout.write(chunk)
         sys.stdout.flush()
     return final

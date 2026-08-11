@@ -3,11 +3,11 @@
 ### Properties
 title: "Asia/Pacific Cross Border Multi-Nodal ATFM Collaboration (AMNAC)"
 type: concept
-summary: "Hong Kong ATFMU is a Level 3 ATFM Node in AMNAC, capable of generating, delivering, and receiving CTOTs, and obligated to comply with CTOTs from other Level 3 nodes."
+summary: "Regional collaboration for cross-border ATFM, with Hong Kong as a Level 3 ATFM Node."
 sources: ["[[raw/sources/AIP_17july2026]]"]
 source_count: 1
-keywords: ["AMNAC", "ATFM Node", "CTOT", "cross-border", "APAC"]
-last_updated: 2026-08-05
+keywords: ["AMNAC", "cross-border ATFM", "Level 3", "CTOT", "APAC"]
+last_updated: 2026-08-11
 
 ## Content
-Hong Kong ATFMU is a member of **AMNAC** (Asia/Pacific Cross Border Multi-Nodal ATFM Collaboration), a research collaboration group in the APAC region. The research focuses on cross-border ATFM to balance demand and capacity for sustainable traffic growth. Following development and trials, a regional framework for collaborative ATFM and common operating procedures has been adopted. Hong Kong ATFMU is a **Level 3 ATFM Node**, meaning it can generate, deliver, and receive CTOTs, and is obligated to comply with CTOTs received from other Level 3 nodes. More information: https://www.atfmc.gov.hk/info.html. See [[ATFM Overview]] and [[Hong Kong ATFMU]].
+Hong Kong ATFMU is a member of AMNAC, a research collaboration in APAC for cross-border ATFM. Regional framework and common procedures adopted. Hong Kong is a Level 3 ATFM Node, capable of generating, delivering, and receiving CTOTs, and obligated to comply with CTOTs from other Level 3 nodes. More info at https://www.atfmc.gov.hk/info.html. See [[BOBCAT ATFM]].
