@@ -423,7 +423,33 @@ class WikiRetriever:
                 return cand
         return self._fetch_from_cloud(toc_name)
 
-    def read_raw_source(self, filename: str, max_tokens: int = 3000, search: str = "") -> str:
+    def _toc_section_bounds(self, toc: dict, matched_page: int) -> Tuple[int, int]:
+        """Return 0-indexed [start, end) page range for a TOC hit (1-indexed matched_page)."""
+        start = max(0, matched_page - 1)  # convert 1-indexed → 0-indexed
+        next_pages = sorted(
+            {
+                int(e["page"])
+                for e in toc.get("entries", [])
+                if int(e.get("page", 0)) > matched_page
+            }
+        )
+        # Prefer next TOC entry as exclusive end; otherwise read a short forward window
+        if next_pages:
+            end = next_pages[0] - 1  # next entry is 1-indexed page number
+            # Convert exclusive end to 0-indexed slice end (= 1-indexed next page - 1 + 0? )
+            # next entry page N (1-idx) starts at index N-1; our section ends there.
+            end = max(start + 1, next_pages[0] - 1)
+        else:
+            end = start + 6
+        return start, end
+
+    def read_raw_source(
+        self,
+        filename: str,
+        max_tokens: int = 3000,
+        search: str = "",
+        focus: str = "",
+    ) -> str:
         target = self._resolve_raw_path(filename)
         if target is None:
             if not self._r2_configured():
@@ -459,18 +485,39 @@ class WikiRetriever:
                                 best_score = score
                                 best_entry = entry
                     if best_entry:
-                        page_num = best_entry["page"]  # 1-indexed
+                        page_num = int(best_entry["page"])  # 1-indexed
                         import fitz
                         doc = fitz.open(str(target))
-                        start = max(0, page_num - 3)  # 3 pages before
-                        end = min(page_num + 4, doc.page_count)  # 4 pages after (~7-page window)
-                        content_parts = []
-                        for p in range(start, end):
-                            content_parts.append(doc[p].get_text())
+                        start, end = self._toc_section_bounds(toc, page_num)
+                        end = min(end, doc.page_count)
+                        # Never start before the matched section — earlier pages
+                        # (e.g. GEN 2.6 conversion tables) burn the token budget.
+                        start = max(start, page_num - 1)
+                        if end <= start:
+                            end = min(start + 6, doc.page_count)
+
+                        page_texts = [(p, doc[p].get_text()) for p in range(start, end)]
                         doc.close()
+
+                        focus_clean = (focus or "").strip()
+                        if focus_clean:
+                            focus_l = focus_clean.lower()
+                            # Prefer pages that contain the focus term (month/day/etc.)
+                            hit = [(p, t) for p, t in page_texts if focus_l in t.lower()]
+                            miss = [(p, t) for p, t in page_texts if focus_l not in t.lower()]
+                            if hit:
+                                page_texts = hit + miss
+
+                        content_parts = [t for _, t in page_texts]
                         content = "\n\n".join(content_parts)
-                        result = f"[Jumped to page {page_num} — matched '{best_entry['title']}']\n\n{content}"
-                        return _token_trim(result, max_tokens)
+                        # Calendar tables need more room than the default excerpt
+                        jump_budget = max(max_tokens, 5000)
+                        result = (
+                            f"[Jumped to page {page_num} — matched '{best_entry['title']}'"
+                            f"{f', focus={focus_clean!r}' if focus_clean else ''} "
+                            f"(pages {start + 1}-{end})]\n\n{content}"
+                        )
+                        return _token_trim(result, jump_budget)
                     # Search term not found in TOC
                     return (f"[Search term '{search}' not found in TOC index of {filename}. "
                             f"Try without search, or use a different term.]")

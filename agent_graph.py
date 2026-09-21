@@ -45,9 +45,9 @@ def get_related(path: str) -> str:
 
 
 @tool
-def read_raw_source(filename: str, search: str = "") -> str:
-    """Read a raw source file excerpt. If 'search' is provided (e.g., 'GEN 2.7'), jumps directly to the PDF page containing that text via the precomputed TOC index. Use this when wiki notes lack details and you know the section reference. Supports .md, .txt, and .pdf files."""
-    return _retriever.read_raw_source(filename, search=search)
+def read_raw_source(filename: str, search: str = "", focus: str = "") -> str:
+    """Read a raw source file excerpt. If 'search' is provided (e.g., 'GEN 2.7'), jumps to that AIP section via the TOC index. Optional 'focus' (e.g., 'May' or '3 May') prioritizes pages inside that section that contain the term — use it for day/month lookups in tables. Supports .md, .txt, and .pdf files."""
+    return _retriever.read_raw_source(filename, search=search, focus=focus)
 
 
 WIKI_TOOLS = [search_wiki, read_page, get_related, read_raw_source]
@@ -66,7 +66,7 @@ FOR EVERY OTHER QUESTION, search before you decide whether the wiki can answer:
 1. Start with `search_wiki`. Do this even when the question sounds like immigration, customs, trade, or health.
 2. Use `read_page` on the most relevant 2-5 pages. Page titles are fine — they resolve to file paths.
 3. Use `get_related` only when you need adjacent context.
-4. Use `read_raw_source` when a wiki note is missing a critical detail (for example a yes/no that depends on a list in GEN 1.3 or GEN 1.4) and you know the source filename or section.
+4. Use `read_raw_source` when a wiki note is missing a critical detail (for example a yes/no that depends on a list in GEN 1.3 or GEN 1.4, or a specific day in a sunrise/sunset table) and you know the source filename or section. For calendar tables, pass search='GEN 2.7' and focus='May' (or the month/day the user asked about).
 5. Then write a concise answer. Cite the wiki page title and the AIP section (shown as § GEN 3.1). Example: *"Source: Meteorological Observations at HKIA (GEN 3.1, AIP Hong Kong)"*.
 
 RULES:
