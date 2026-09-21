@@ -46,7 +46,7 @@ def get_related(path: str) -> str:
 
 @tool
 def read_raw_source(filename: str, search: str = "", focus: str = "") -> str:
-    """Read a raw source file excerpt. If 'search' is provided (e.g., 'GEN 2.7'), jumps to that AIP section via the TOC index. Optional 'focus' (e.g., 'May' or '3 May') prioritizes pages inside that section that contain the term — use it for day/month lookups in tables. Supports .md, .txt, and .pdf files."""
+    """Read a raw AIP source PDF excerpt. filename must be the PDF stem or path from wiki sources (e.g. 'AIP_17july2026'), NEVER a section id like 'GEN 2.7'. Put the section in search (e.g. search='GEN 2.7'). Optional focus (e.g. 'May' or '3 May') prioritizes matching table pages."""
     return _retriever.read_raw_source(filename, search=search, focus=focus)
 
 
@@ -66,7 +66,7 @@ FOR EVERY OTHER QUESTION, search before you decide whether the wiki can answer:
 1. Start with `search_wiki`. Do this even when the question sounds like immigration, customs, trade, or health.
 2. Use `read_page` on the most relevant 2-5 pages. Page titles are fine — they resolve to file paths.
 3. Use `get_related` only when you need adjacent context.
-4. Use `read_raw_source` when a wiki note is missing a critical detail (for example a yes/no that depends on a list in GEN 1.3 or GEN 1.4, or a specific day in a sunrise/sunset table) and you know the source filename or section. For calendar tables, pass search='GEN 2.7' and focus='May' (or the month/day the user asked about).
+4. Use `read_raw_source` when a wiki note is missing a critical detail (for example a yes/no that depends on a list in GEN 1.3 or GEN 1.4, or a specific day in a sunrise/sunset table). Always set filename to the wiki source file (usually 'AIP_17july2026'), search to the section (e.g. 'GEN 2.7'), and focus to the month/day when relevant (e.g. 'May'). Never pass a section id as filename.
 5. Then write a concise answer. Cite the wiki page title and the AIP section (shown as § GEN 3.1). Example: *"Source: Meteorological Observations at HKIA (GEN 3.1, AIP Hong Kong)"*.
 
 RULES:
