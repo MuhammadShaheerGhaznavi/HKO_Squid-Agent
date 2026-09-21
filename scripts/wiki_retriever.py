@@ -342,22 +342,42 @@ class WikiRetriever:
         if local_path.exists() and local_path.stat().st_size > 0:
             return local_path
 
-        object_key = f"{R2_RAW_PREFIX}{key_name}"
+        object_keys = []
+        for object_key in (key_name, f"{R2_RAW_PREFIX}{key_name}"):
+            if object_key not in object_keys:
+                object_keys.append(object_key)
+
         # Use string concat so multi-suffix names like *.toc.json stay intact
         tmp_path = Path(str(local_path) + ".partial")
+        errors = []
         try:
             local_path.parent.mkdir(parents=True, exist_ok=True)
-            s3.download_file(R2_BUCKET, object_key, str(tmp_path))
-            tmp_path.replace(local_path)
-            return local_path
+            for object_key in object_keys:
+                try:
+                    s3.download_file(R2_BUCKET, object_key, str(tmp_path))
+                    tmp_path.replace(local_path)
+                    self._last_r2_error = ""
+                    return local_path
+                except Exception as e:
+                    code = ""
+                    response = getattr(e, "response", None)
+                    if isinstance(response, dict):
+                        code = response.get("Error", {}).get("Code", "")
+                    errors.append(f"{object_key} ({code or type(e).__name__})")
+                    try:
+                        if tmp_path.exists():
+                            tmp_path.unlink()
+                    except OSError:
+                        pass
+                    # Auth/config errors will fail every key; missing keys should try the next path.
+                    if code not in ("404", "NoSuchKey", "NotFound", ""):
+                        break
         except Exception as e:
-            print(f"[R2 fetch failed for {object_key}: {e}]")
-            try:
-                if tmp_path.exists():
-                    tmp_path.unlink()
-            except OSError:
-                pass
-            return None
+            errors.append(type(e).__name__)
+
+        self._last_r2_error = "; ".join(errors) if errors else "unknown error"
+        print(f"[R2 fetch failed for {key_name}: {self._last_r2_error}]")
+        return None
 
     def _resolve_raw_path(self, filename: str) -> Optional[Path]:
         """Resolve a raw source filename to a local path: local disk first, then R2 cloud."""
@@ -406,7 +426,13 @@ class WikiRetriever:
     def read_raw_source(self, filename: str, max_tokens: int = 3000, search: str = "") -> str:
         target = self._resolve_raw_path(filename)
         if target is None:
-            return f"[Raw source not found: {filename}]"
+            if not self._r2_configured():
+                return (
+                    f"[Raw source not found: {filename}. "
+                    "R2 credentials are not configured on this server.]"
+                )
+            detail = getattr(self, "_last_r2_error", "") or "object was not in the bucket"
+            return f"[Raw source not found: {filename}. Cloud fetch failed: {detail}]"
 
         suffix = target.suffix.lower()
 
