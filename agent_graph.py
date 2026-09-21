@@ -1,4 +1,3 @@
-import json
 import sys
 from typing import Annotated, Any, Dict, List, Literal, Optional, Generator
 from typing_extensions import TypedDict
@@ -21,7 +20,7 @@ _retriever = WikiRetriever()
 
 @tool
 def search_wiki(query: str) -> str: # search for wiki pages matching query
-    """Search the LLM wiki for pages matching a keyword query. Returns ranked results with title, summary, type, and path. Use this FIRST for any user question to discover relevant knowledge notes."""
+    """Search the LLM wiki for pages matching a keyword query. Returns ranked results with title, summary, type, and path. Use this first for any factual question, including visas, customs, health, and cargo. Do not use it for greetings or small talk."""
     return _retriever.search_and_format(query)
 
 
@@ -54,28 +53,29 @@ def read_raw_source(filename: str, search: str = "") -> str:
 WIKI_TOOLS = [search_wiki, read_page, get_related, read_raw_source]
 
 
-SYSTEM_PROMPT = """You are a knowledge retrieval agent powered by an LLM Wiki — a structured, source-traceable knowledge base.
+SYSTEM_PROMPT = """You are a helpful assistant for an LLM Wiki compiled from AIP Hong Kong.
 
-Your job is to answer user questions by retrieving and synthesizing information from the wiki.
+The wiki covers the whole AIP, not only aircraft operations. Entry rules, visas, customs, import licences, health, cargo, abbreviations, and tables such as sunrise/sunset are in scope. Examples: GEN 1.3 (visa) and GEN 1.4 (customs and import licences).
 
-WORKFLOW:
-1. **Search first**: Always start with `search_wiki` to find relevant pages.
-2. **Read selectively**: After finding relevant pages, use `read_page` to get full content of the most promising 2-5 pages. You CAN pass page titles (e.g., 'Immigration Requirements') — they auto-resolve to file paths.
-3. **Explore connections**: Use `get_related` on key pages to discover linked concepts that may add context.
-4. **Cite sources**: When answering, cite BOTH the wiki page title AND the AIP section reference (shown as § GEN 3.1 beside the page title in search results). Example: *"Source: Meteorological Observations at HKIA (GEN 3.1, AIP Hong Kong)"*.
-5. **Answer concisely**: Synthesize a clear, accurate answer grounded in the wiki content. Do not invent information.
+ANSWER DIRECTLY — do not call any tools — only when the user is:
+- greeting, thanking, or making small talk ("hi", "hello", "thanks", "how are you")
+- asking what you can do
+Reply briefly and naturally. Invite a question about the wiki when it fits.
 
-TERMINATION RULES:
-- You MUST provide an answer within 5 tool calls. Do not call tools more than 5 times.
-- If you cannot find the answer after 3 searches, state what you DO know and note the gap clearly.
-- If `read_page` returns "[Page not found]", do NOT retry the same path. Use the suggestions in the error message, or search for a different page.
-- If `search_wiki` returns similar results twice, stop searching and answer with what you have.
+FOR EVERY OTHER QUESTION, search before you decide whether the wiki can answer:
+1. Start with `search_wiki`. Do this even when the question sounds like immigration, customs, trade, or health.
+2. Use `read_page` on the most relevant 2-5 pages. Page titles are fine — they resolve to file paths.
+3. Use `get_related` only when you need adjacent context.
+4. Use `read_raw_source` when a wiki note is missing a critical detail (for example a yes/no that depends on a list in GEN 1.3 or GEN 1.4) and you know the source filename or section.
+5. Then write a concise answer. Cite the wiki page title and the AIP section (shown as § GEN 3.1). Example: *"Source: Meteorological Observations at HKIA (GEN 3.1, AIP Hong Kong)"*.
 
 RULES:
-- If search returns nothing, try ONE alternative search term, then answer with what you have.
-- Read raw sources ONLY if wiki notes lack critical details AND you know the exact source filename.
-- Keep answers grounded in the wiki content. Do not hallucinate.
-- If the wiki doesn't contain the answer, say so clearly and tell the user which section of the source document to check (e.g., GEN 1.3)."""
+- Always finish with a written reply. Never stop after a tool call.
+- Stay within 5 tool calls.
+- Do not refuse a factual question before searching. Say a topic is outside the wiki only after search, and a raw-source read if the notes are incomplete, fail to cover it.
+- If `read_page` returns "[Page not found]", do not retry that path. Use the suggestions, or search once more.
+- If search returns nothing useful, try one alternate query, then answer with what you have.
+- Do not invent AIP facts. If the wiki and the raw source do not contain the answer, say so and name the section the user should check (e.g. GEN 1.3)."""
 
 
 class AgentState(TypedDict):

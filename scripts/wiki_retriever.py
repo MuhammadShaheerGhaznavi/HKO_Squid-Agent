@@ -11,6 +11,8 @@ import tiktoken # Tiktoken is a fast, byte pair encoding (BPE) tokenizer - helps
 from config import (
     WIKI_DIR, RAW_DIR, RAW_SOURCES_DIR, CATALOG_FILE, TOP_K_SEARCH,
     MAX_TOKENS_PER_PAGE, MAX_CHUNK_TOKENS, CHUNK_OVERLAP_TOKENS,
+    RAW_CACHE_DIR, R2_RAW_PREFIX,
+    R2_ENDPOINT_URL, R2_BUCKET, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY,
 )
 
 _tokenizer = tiktoken.get_encoding("cl100k_base")
@@ -294,30 +296,124 @@ class WikiRetriever:
                 continue
         return backlinks
 
-    def read_raw_source(self, filename: str, max_tokens: int = 3000, search: str = "") -> str:
-        # Check raw/sources/ first, then raw/
-        for base_dir in (RAW_SOURCES_DIR, RAW_DIR):
-            target = base_dir / filename.lstrip("/")
-            if target.exists():
+    @staticmethod
+    def _normalize_raw_filename(filename: str) -> str:
+        """Strip wiki-link brackets and raw/ path prefixes to a bare source name."""
+        name = filename.strip()
+        name = name.lstrip("[").rstrip("]").strip()
+        # Handle [[raw/sources/foo]] leftover brackets
+        while name.startswith("[") or name.endswith("]"):
+            name = name.strip("[]").strip()
+        for prefix in ("raw/sources/", "raw/", "sources/"):
+            if name.lower().startswith(prefix):
+                name = name[len(prefix):]
                 break
-            # Auto-detect extension if not provided
-            for ext in (".pdf", ".md", ".txt"):
-                candidate = base_dir / (filename.lstrip("/") + ext)
-                if candidate.exists():
-                    target = candidate
-                    break
-            else:
-                continue
-            break
-        else:
+        return name.lstrip("/")
+
+    def _r2_configured(self) -> bool:
+        return bool(R2_ENDPOINT_URL and R2_BUCKET and R2_ACCESS_KEY_ID and R2_SECRET_ACCESS_KEY)
+
+    def _get_s3_client(self):
+        """Lazy-init a reusable boto3 S3 client for R2."""
+        if not self._r2_configured():
+            return None
+        if getattr(self, "_s3_client", None) is None:
+            import boto3
+            self._s3_client = boto3.client(
+                "s3",
+                endpoint_url=R2_ENDPOINT_URL,
+                aws_access_key_id=R2_ACCESS_KEY_ID,
+                aws_secret_access_key=R2_SECRET_ACCESS_KEY,
+                region_name="auto",
+            )
+        return self._s3_client
+
+    def _fetch_from_cloud(self, filename: str) -> Optional[Path]:
+        """Download a raw source file from R2 object storage into a local cache."""
+        s3 = self._get_s3_client()
+        if s3 is None:
+            return None
+
+        key_name = self._normalize_raw_filename(filename)
+        if not key_name:
+            return None
+
+        local_path = RAW_CACHE_DIR / key_name
+        if local_path.exists() and local_path.stat().st_size > 0:
+            return local_path
+
+        object_key = f"{R2_RAW_PREFIX}{key_name}"
+        # Use string concat so multi-suffix names like *.toc.json stay intact
+        tmp_path = Path(str(local_path) + ".partial")
+        try:
+            local_path.parent.mkdir(parents=True, exist_ok=True)
+            s3.download_file(R2_BUCKET, object_key, str(tmp_path))
+            tmp_path.replace(local_path)
+            return local_path
+        except Exception as e:
+            print(f"[R2 fetch failed for {object_key}: {e}]")
+            try:
+                if tmp_path.exists():
+                    tmp_path.unlink()
+            except OSError:
+                pass
+            return None
+
+    def _resolve_raw_path(self, filename: str) -> Optional[Path]:
+        """Resolve a raw source filename to a local path: local disk first, then R2 cloud."""
+        name = self._normalize_raw_filename(filename)
+        candidates = [name]
+        # Auto-detect extension when agent passes bare stem (e.g. AIP_17july2026)
+        if "." not in Path(name).name:
+            candidates = [name + ext for ext in (".pdf", ".md", ".txt")]
+
+        # 1. Local disk (dev machine / git-tracked sources)
+        for base_dir in (RAW_SOURCES_DIR, RAW_DIR):
+            for cand in candidates:
+                p = base_dir / cand
+                if p.exists():
+                    return p
+
+        # 2. Already in cache from a prior R2 fetch
+        for cand in candidates:
+            cached = RAW_CACHE_DIR / cand
+            if cached.exists() and cached.stat().st_size > 0:
+                return cached
+
+        # 3. R2 cloud (downloads to cache)
+        for cand in candidates:
+            p = self._fetch_from_cloud(cand)
+            if p:
+                return p
+
+        return None
+
+    def _resolve_toc_path(self, pdf_path: Path, filename: str) -> Optional[Path]:
+        """Find the .toc.json sidecar beside the PDF, in local sources, or via R2."""
+        toc_name = Path(self._normalize_raw_filename(filename)).stem + ".toc.json"
+        # Path.with_suffix(".toc.json") on foo.pdf → foo.toc.json
+        candidates = [
+            pdf_path.with_name(toc_name),
+            RAW_SOURCES_DIR / toc_name,
+            RAW_DIR / toc_name,
+            RAW_CACHE_DIR / toc_name,
+        ]
+        for cand in candidates:
+            if cand.exists():
+                return cand
+        return self._fetch_from_cloud(toc_name)
+
+    def read_raw_source(self, filename: str, max_tokens: int = 3000, search: str = "") -> str:
+        target = self._resolve_raw_path(filename)
+        if target is None:
             return f"[Raw source not found: {filename}]"
 
         suffix = target.suffix.lower()
 
         # If search term provided + PDF with TOC sidecar → direct page jump
         if search and suffix == ".pdf":
-            toc_path = target.with_suffix(".toc.json")
-            if toc_path.exists():
+            toc_path = self._resolve_toc_path(target, filename)
+            if toc_path and toc_path.exists():
                 try:
                     toc = json.loads(toc_path.read_text(encoding="utf-8"))
                     # Find best TOC entry matching search term (fuzzy normalization)

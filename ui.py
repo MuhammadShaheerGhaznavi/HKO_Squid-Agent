@@ -64,48 +64,46 @@ if prompt := st.chat_input("Ask a question about the wiki..."):
         st.markdown(prompt)
 
     with st.chat_message("assistant"):
-        status = st.status("Searching wiki...", expanded=False)
+        status = st.status("Thinking...", expanded=False)
         answer_placeholder = st.empty()
 
         tool_calls_log = []
         answer_text = ""
+        in_answer = False
 
         for chunk in stream_query(prompt):
+            if "## Answer" in chunk:
+                in_answer = True
+                answer_text += chunk.split("## Answer", 1)[1]
+                answer_placeholder.markdown(answer_text)
+                status.update(label="Writing answer...", state="running")
+                continue
+
+            if in_answer:
+                answer_text += chunk
+                answer_placeholder.markdown(answer_text)
+                continue
+
             stripped = chunk.strip()
-
-            if stripped == "## Answer":
-                continue  # heading handled by answer_text accumulation
-
-            # Tool call: starts with emoji + bold label
             is_tool_call = any(stripped.startswith(f"{emoji} **") for emoji in ["🔍", "📖", "🔗", "📄", "🔧"])
             if is_tool_call:
                 label = stripped.split("`")[0].strip() if "`" in stripped else stripped
                 tool_calls_log.append(label)
                 tool_fn = label.split("**")[1].strip() if "**" in label else "tool"
                 status.update(label=f"Running: {tool_fn}", state="running")
-
-            elif stripped.startswith("─") and answer_text == "":
-                # Separator line — skip
-                pass
-
             elif stripped.startswith("[Max iterations"):
                 status.update(label=stripped, state="error")
 
-            elif stripped:
-                if answer_text == "" and not is_tool_call:
-                    status.update(label="Synthesizing answer...", state="running")
-                if not is_tool_call:
-                    answer_text += chunk
-                    answer_placeholder.markdown(answer_text)
-
         status.update(label="Complete", state="complete")
+        answer_text = answer_text.strip()
         if answer_text:
+            answer_placeholder.markdown(answer_text)
+        else:
+            answer_text = "I couldn't find enough information in the wiki to answer that question."
             answer_placeholder.markdown(answer_text)
 
         st.session_state.messages.append({
             "role": "assistant",
-            "content": answer_text
-            if answer_text
-            else "I couldn't find enough information in the wiki to answer that question.",
+            "content": answer_text,
             "tool_calls": tool_calls_log,
         })
