@@ -170,7 +170,17 @@ def _build_graph() -> StateGraph:
 _graph = _build_graph()
 
 
-def stream_query(query: str, max_iterations: int = MAX_AGENT_ITERATIONS) -> Generator[str, None, str]:
+def stream_query_events(
+    query: str, max_iterations: int = MAX_AGENT_ITERATIONS
+) -> Generator[Dict[str, Any], None, None]:
+    """Yield structured agent events for UI / debugging.
+
+    Event shapes:
+      {"type": "tool_call", "name": str, "args": dict, "label": str}
+      {"type": "tool_result", "name": str, "content": str}
+      {"type": "answer", "content": str}
+      {"type": "error", "content": str}
+    """
     system_msg = SystemMessage(content=SYSTEM_PROMPT)
     user_msg = HumanMessage(content=query)
 
@@ -179,44 +189,80 @@ def stream_query(query: str, max_iterations: int = MAX_AGENT_ITERATIONS) -> Gene
         "iteration_count": 0,
     }
 
-    last_answer = ""
     display_names = {
         "search_wiki": "Searching wiki",
         "read_page": "Reading page",
         "get_related": "Related pages",
         "read_raw_source": "Raw source",
     }
+    pending_names: Dict[str, str] = {}  # tool_call_id → tool name
+    prev_msg_count = 0
 
     for event in _graph.stream(state, stream_mode="values"):
         msgs = event.get("messages", [])
         if not msgs:
             continue
 
-        last_msg = msgs[-1]
         it_count = event.get("iteration_count", 0)
-
         if it_count > max_iterations:
-            yield "[Max iterations reached — stopping.]\n"
+            yield {"type": "error", "content": "[Max iterations reached — stopping.]"}
             break
 
-        if isinstance(last_msg, ToolMessage): 
-            tool_output = str(last_msg.content)
+        for msg in msgs[prev_msg_count:]:
+            if isinstance(msg, AIMessage) and msg.tool_calls:
+                for tc in msg.tool_calls:
+                    tool_name = tc["name"]
+                    tool_args = tc.get("args", {}) or {}
+                    pending_names[tc["id"]] = tool_name
+                    yield {
+                        "type": "tool_call",
+                        "name": tool_name,
+                        "args": tool_args,
+                        "label": display_names.get(tool_name, tool_name),
+                    }
+
+            elif isinstance(msg, ToolMessage):
+                tool_name = pending_names.pop(msg.tool_call_id, "unknown")
+                yield {
+                    "type": "tool_result",
+                    "name": tool_name,
+                    "content": str(msg.content),
+                }
+
+            elif isinstance(msg, AIMessage) and not msg.tool_calls:
+                content = str(msg.content or "").strip()
+                if content:
+                    yield {"type": "answer", "content": content}
+
+        prev_msg_count = len(msgs)
+
+
+def stream_query(query: str, max_iterations: int = MAX_AGENT_ITERATIONS) -> Generator[str, None, str]:
+    last_answer = ""
+    emoji = {
+        "search_wiki": "🔍",
+        "read_page": "📖",
+        "get_related": "🔗",
+        "read_raw_source": "📄",
+    }
+
+    for event in stream_query_events(query, max_iterations):
+        etype = event.get("type")
+        if etype == "tool_call":
+            args = event.get("args") or {}
+            args_str = ", ".join(f"{k}={repr(v)}" for k, v in args.items())
+            mark = emoji.get(event.get("name", ""), "🔧")
+            yield f"\n{'─' * 50}\n"
+            yield f"{mark} **{event.get('label', event.get('name'))}** `{args_str}`\n"
+        elif etype == "tool_result":
+            tool_output = str(event.get("content", ""))
             truncated = tool_output[:800] + "..." if len(tool_output) > 800 else tool_output
             yield f"\n{truncated}\n"
-
-        elif isinstance(last_msg, AIMessage):
-            if last_msg.tool_calls:
-                for tc in last_msg.tool_calls:
-                    tool_name = tc["name"]
-                    tool_args = tc.get("args", {})
-                    args_str = ", ".join(f"{k}={repr(v)}" for k, v in tool_args.items())
-                    label = display_names.get(tool_name, tool_name)
-                    emoji = {"search_wiki": "🔍", "read_page": "📖", "get_related": "🔗", "read_raw_source": "📄"}.get(tool_name, "🔧")
-                    yield f"\n{'─' * 50}\n"
-                    yield f"{emoji} **{label}** `{args_str}`\n"
-            else:
-                last_answer = str(last_msg.content)
-                yield f"\n{'─' * 50}\n## Answer\n\n{last_answer}\n"
+        elif etype == "answer":
+            last_answer = str(event.get("content", ""))
+            yield f"\n{'─' * 50}\n## Answer\n\n{last_answer}\n"
+        elif etype == "error":
+            yield f"{event.get('content', '')}\n"
 
     return last_answer
 
@@ -240,53 +286,34 @@ def run_query(query: str, max_iterations: int = MAX_AGENT_ITERATIONS) -> str:
 
 def structured_query(query: str, max_iterations: int = MAX_AGENT_ITERATIONS) -> Dict[str, Any]:
     """Runs the ReAct agent and returns structured data: answer, tool_calls, and sources."""
-    system_msg = SystemMessage(content=SYSTEM_PROMPT)
-    user_msg = HumanMessage(content=query)
-
-    state: AgentState = {
-        "messages": [system_msg, user_msg],
-        "iteration_count": 0,
-    }
-
     tool_calls_collected: List[Dict[str, Any]] = []
     sources_collected: List[str] = []
-    pending_tool_calls: Dict[str, str] = {}  # tool_call_id → tool_name
     last_answer = ""
-    prev_msg_count = 0
+    pending_call: Optional[Dict[str, Any]] = None
 
-    for event in _graph.stream(state, stream_mode="values"): ## entry  point of the graph  -> gets the graph running and streams the answers asynchronously
-        msgs = event.get("messages", [])
-        if not msgs:
-            continue
-
-        it_count = event.get("iteration_count", 0)
-        if it_count > max_iterations:
-            break
-
-        for msg in msgs[prev_msg_count:]:
-            if isinstance(msg, AIMessage) and msg.tool_calls:
-                for tc in msg.tool_calls:
-                    tool_name = tc["name"]
-                    tool_args = tc.get("args", {})
-                    pending_tool_calls[tc["id"]] = tool_name
-                    if tool_name == "read_page":
-                        page_path = tool_args.get("path", "")
-                        if page_path and page_path not in sources_collected:
-                            sources_collected.append(page_path)
-
-            elif isinstance(msg, ToolMessage):
-                tool_name = pending_tool_calls.pop(msg.tool_call_id, "unknown")
-                result_text = str(msg.content)
-                result_preview = result_text[:500] + "..." if len(result_text) > 500 else result_text
-                tool_calls_collected.append({
-                    "tool": tool_name,
-                    "result_preview": result_preview,
-                })
-
-            elif isinstance(msg, AIMessage) and not msg.tool_calls:
-                last_answer = str(msg.content)
-
-        prev_msg_count = len(msgs)
+    for event in stream_query_events(query, max_iterations):
+        etype = event.get("type")
+        if etype == "tool_call":
+            pending_call = {
+                "tool": event.get("name", "unknown"),
+                "args": event.get("args") or {},
+            }
+            if pending_call["tool"] == "read_page":
+                page_path = pending_call["args"].get("path", "")
+                if page_path and page_path not in sources_collected:
+                    sources_collected.append(page_path)
+        elif etype == "tool_result":
+            result_text = str(event.get("content", ""))
+            result_preview = result_text[:500] + "..." if len(result_text) > 500 else result_text
+            entry = pending_call or {"tool": event.get("name", "unknown"), "args": {}}
+            tool_calls_collected.append({
+                "tool": entry.get("tool", event.get("name", "unknown")),
+                "args": entry.get("args", {}),
+                "result_preview": result_preview,
+            })
+            pending_call = None
+        elif etype == "answer":
+            last_answer = str(event.get("content", "")).strip()
 
     return {
         "query": query,

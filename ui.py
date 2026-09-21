@@ -1,8 +1,21 @@
+import json
+
 import streamlit as st
-from agent_graph import stream_query, MAX_AGENT_ITERATIONS
+
+from agent_graph import stream_query_events
 from scripts.wiki_retriever import WikiRetriever
 
 st.set_page_config(page_title="LLM Wiki Query Agent", page_icon="📚", layout="wide")
+
+# How much of each tool result to show in the Reasoning expander
+RESULT_PREVIEW_CHARS = 6000
+
+EMOJI = {
+    "search_wiki": "🔍",
+    "read_page": "📖",
+    "get_related": "🔗",
+    "read_raw_source": "📄",
+}
 
 
 @st.cache_resource
@@ -17,6 +30,48 @@ def get_wiki_stats(_retriever: WikiRetriever) -> dict:
     for e in _retriever._entries_list:
         by_type[e.type] = by_type.get(e.type, 0) + 1
     return by_type
+
+
+def _format_args(args: dict) -> str:
+    if not args:
+        return "(no args)"
+    return ", ".join(f"{k}={json.dumps(v, ensure_ascii=False)}" for k, v in args.items())
+
+
+def _preview_result(content: str, limit: int = RESULT_PREVIEW_CHARS) -> str:
+    text = content or ""
+    if len(text) <= limit:
+        return text
+    return text[:limit] + f"\n\n… truncated ({len(text)} chars total; showing first {limit})"
+
+
+def render_reasoning(steps: list, *, expanded: bool = False, key: str | None = None):
+    if not steps:
+        return
+    expander_kwargs = {"expanded": expanded}
+    if key is not None:
+        expander_kwargs["key"] = key
+    with st.expander(f"Reasoning steps ({len(steps)})", **expander_kwargs):
+        for i, step in enumerate(steps, 1):
+            stype = step.get("type")
+            if stype == "tool_call":
+                name = step.get("name", "tool")
+                mark = EMOJI.get(name, "🔧")
+                label = step.get("label") or name
+                st.markdown(f"**{i}. {mark} {label}**")
+                st.code(_format_args(step.get("args") or {}), language="text")
+            elif stype == "tool_result":
+                name = step.get("name", "tool")
+                content = step.get("content") or ""
+                empty = not content.strip()
+                st.markdown(
+                    f"**↳ Result from `{name}`**"
+                    + (" — ⚠️ empty / no content" if empty else f" — {len(content)} chars")
+                )
+                st.code(_preview_result(content), language="text")
+            elif stype == "error":
+                st.error(step.get("content", "Unknown error"))
+            st.divider()
 
 
 retriever = get_retriever()
@@ -50,12 +105,14 @@ with st.sidebar:
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-for msg in st.session_state.messages:
+for idx, msg in enumerate(st.session_state.messages):
     with st.chat_message(msg["role"]):
-        if msg["role"] == "assistant" and msg.get("tool_calls"):
-            with st.expander("Reasoning steps", expanded=False):
-                for tc in msg["tool_calls"]:
-                    st.caption(tc)
+        if msg["role"] == "assistant":
+            render_reasoning(
+                msg.get("reasoning") or [],
+                expanded=False,
+                key=f"hist_reason_{idx}",
+            )
         st.markdown(msg["content"])
 
 if prompt := st.chat_input("Ask a question about the wiki..."):
@@ -64,46 +121,76 @@ if prompt := st.chat_input("Ask a question about the wiki..."):
         st.markdown(prompt)
 
     with st.chat_message("assistant"):
-        status = st.status("Thinking...", expanded=False)
+        status = st.status("Thinking...", expanded=True)
+        reason_box = st.empty()
         answer_placeholder = st.empty()
 
-        tool_calls_log = []
+        reasoning_steps: list = []
         answer_text = ""
-        in_answer = False
+        open_call = None
 
-        for chunk in stream_query(prompt):
-            if "## Answer" in chunk:
-                in_answer = True
-                answer_text += chunk.split("## Answer", 1)[1]
+        for event in stream_query_events(prompt):
+            etype = event.get("type")
+
+            if etype == "tool_call":
+                open_call = {
+                    "type": "tool_call",
+                    "name": event.get("name", "tool"),
+                    "args": event.get("args") or {},
+                    "label": event.get("label") or event.get("name", "tool"),
+                }
+                reasoning_steps.append(open_call)
+                status.update(
+                    label=f"Running: {open_call['label']}",
+                    state="running",
+                    expanded=True,
+                )
+                with reason_box.container():
+                    render_reasoning(
+                        reasoning_steps,
+                        expanded=True,
+                        key=f"live_reason_{len(reasoning_steps)}",
+                    )
+
+            elif etype == "tool_result":
+                reasoning_steps.append({
+                    "type": "tool_result",
+                    "name": event.get("name") or (open_call or {}).get("name", "tool"),
+                    "content": event.get("content") or "",
+                })
+                open_call = None
+                status.update(label="Got tool result…", state="running", expanded=True)
+                with reason_box.container():
+                    render_reasoning(
+                        reasoning_steps,
+                        expanded=True,
+                        key=f"live_reason_{len(reasoning_steps)}",
+                    )
+
+            elif etype == "answer":
+                answer_text = (event.get("content") or "").strip()
+                status.update(label="Writing answer...", state="running", expanded=False)
                 answer_placeholder.markdown(answer_text)
-                status.update(label="Writing answer...", state="running")
-                continue
 
-            if in_answer:
-                answer_text += chunk
-                answer_placeholder.markdown(answer_text)
-                continue
+            elif etype == "error":
+                reasoning_steps.append({
+                    "type": "error",
+                    "content": event.get("content") or "Unknown error",
+                })
+                status.update(label="Error", state="error", expanded=True)
+                with reason_box.container():
+                    render_reasoning(reasoning_steps, expanded=True, key="live_reason")
 
-            stripped = chunk.strip()
-            is_tool_call = any(stripped.startswith(f"{emoji} **") for emoji in ["🔍", "📖", "🔗", "📄", "🔧"])
-            if is_tool_call:
-                label = stripped.split("`")[0].strip() if "`" in stripped else stripped
-                tool_calls_log.append(label)
-                tool_fn = label.split("**")[1].strip() if "**" in label else "tool"
-                status.update(label=f"Running: {tool_fn}", state="running")
-            elif stripped.startswith("[Max iterations"):
-                status.update(label=stripped, state="error")
+        status.update(label="Complete", state="complete", expanded=False)
+        with reason_box.container():
+            render_reasoning(reasoning_steps, expanded=False, key="final_reason")
 
-        status.update(label="Complete", state="complete")
-        answer_text = answer_text.strip()
-        if answer_text:
-            answer_placeholder.markdown(answer_text)
-        else:
+        if not answer_text:
             answer_text = "I couldn't find enough information in the wiki to answer that question."
-            answer_placeholder.markdown(answer_text)
+        answer_placeholder.markdown(answer_text)
 
         st.session_state.messages.append({
             "role": "assistant",
             "content": answer_text,
-            "tool_calls": tool_calls_log,
+            "reasoning": reasoning_steps,
         })
